@@ -1,0 +1,15 @@
+.DS_Store
+
+# Obsidian：插件代码不入库，插件设置（data.json / manifest.json）保留
+.obsidian/plugins/*/main.js
+.obsidian/plugins/*/styles.css
+
+# 本地 UI 状态，随机器变化
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# 备份
+*.bak
+
+# 外部来源的资料，来源与授权不明，不公开
+_roadmap.html
