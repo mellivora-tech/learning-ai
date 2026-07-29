@@ -66,7 +66,11 @@ Attention 把每个 token 的表示，重算成「它和序列里所有 token �
 
 原始论文的标题就是结论——[Attention Is All You Need](https://arxiv.org/abs/1706.03762)，Google Brain 与 Google Research 的八人团队，2017 年。其中 Noam Shazeer 值得单独记一下：这篇往后的 [MQA](https://arxiv.org/abs/1911.02150) 和 [SwiGLU](https://arxiv.org/abs/2002.05202) 也都出自他手，本篇参考里他一个人占三条。
 
-三条路线的差别可以压成一句话：**RNN 靠一个隐状态把序列顺序串起来，CNN 靠堆层数把视野撑开，self-attention 一层就把所有位置直连。** 去掉循环结构之后，代价和收益都很极端，原文 Table 1 的三方对比：
+三条路线的差别可以压成一句话：**RNN 靠一个隐状态把序列顺序串起来，CNN 靠堆层数把视野撑开，self-attention 一层就把所有位置直连。** 画出来是这样：
+
+![[信息从头传到尾要几步.excalidraw.md|700]]
+
+去掉循环结构之后，代价和收益都很极端。原文 Table 1 把这张图量化成了三列：
 
 | | 每层计算量 | 串行步数 | 任意两位置的最大路径长度 |
 | --- | --- | --- | --- |
@@ -90,7 +94,7 @@ Attention 把每个 token 的表示，重算成「它和序列里所有 token �
 
 2020 年之后基本收敛到 decoder-only。原因不是它在每个任务上都最强，而是：next-token prediction 一个目标就能同时覆盖理解和生成，不必为每类任务换预测头；训练与推理栈都最简单；而且它最适合规模化。今天说「大模型」，默认指的就是 decoder-only。
 
-这个库后面所有关于 KV cache、prefill/decode、推理服务的讨论，也都默认 decoder-only，见 [[08-预训练、后训练、对齐]]。
+所以下面讲 causal mask、KV cache、prefill/decode，默认说的都是 decoder-only。
 
 ### 八年里真正变过的东西
 
@@ -129,7 +133,13 @@ Attention 把每个 token 的表示，重算成「它和序列里所有 token �
 
 ### 一次 attention 在算什么
 
-每个 token 从自己的表示投影出三个东西：query（我要找什么）、key（我能提供什么）、value（我实际交出的内容）。用所有 query 和所有 key 两两点积，得到一张 $T \times T$ 的相关度矩阵，归一化成权重后去加权 value：
+每个 token 从自己的表示投影出三个东西：query（我要找什么）、key（我能提供什么）、value（我实际交出的内容）。用所有 query 和所有 key 两两点积，得到一张 $T \times T$ 的相关度矩阵，归一化成权重后去加权 value。
+
+盯住一个位置看，就是开头那个「苹果」例子的内部：
+
+![[一次 attention 在算什么.excalidraw.md|700]]
+
+写成公式：
 
 $$
 \text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
@@ -154,7 +164,9 @@ $$
 
 ### Causal mask
 
-decoder-only 模型里，位置 $i$ 只允许看 $\le i$ 的位置。实现就是把 `scores` 的上三角填成 $-\infty$，softmax 后自然变成 0。
+decoder-only 模型里，位置 $i$ 只允许看 $\le i$ 的位置。实现就是把 `scores` 的上三角填成 $-\infty$，softmax 后自然变成 0：
+
+![[causal mask 的上三角.excalidraw.md|639]]
 
 这个 mask 带来一条关键性质：一次前向就能同时拿到 $T$ 个位置各自的预测，训练可以完全并行。而生成时下一个 token 依赖上一个的输出，只能一步一步来。这就是 [[01-Prefill vs Decode]] 里两个阶段性质截然不同的根源。
 
