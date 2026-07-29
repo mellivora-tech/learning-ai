@@ -98,7 +98,7 @@ Attention 把每个 token 的表示，重算成「它和序列里所有 token �
 
 ### 八年里真正变过的东西
 
-| | 原始 Transformer（2017） | 现在（Llama 系） |
+| | 原始 Transformer（2017） | 现在（Qwen3、DeepSeek 这些） |
 | --- | --- | --- |
 | 整体结构 | encoder-decoder | decoder-only |
 | 归一化位置 | post-norm | pre-norm |
@@ -116,7 +116,7 @@ Attention 把每个 token 的表示，重算成「它和序列里所有 token �
 1. **Tokenize**——文本切成 token id 序列，见 [[03-Tokenization]]。
 2. **Embedding 查表**——一张 `[vocab_size, d]` 的表，每个 token id 查出一个 $d$ 维向量。这是 token 唯一的、与上下文无关的初始表示。开头「苹果」那个例子里说的「两句拿到的向量一模一样」，指的就是这一步的输出，见 [[06-Embedding 与向量空间]]。
 3. **注入位置信息**——attention 看不见顺序，顺序在这里加进去。现代做法是 RoPE，作用在每一层的 Q 和 K 上，见 [[07-位置编码与长度外推]]。
-4. **N 个结构相同的 block**——每个 block 是「attention 子层 + FFN 子层」，各自配残差和归一化。$N$ 通常几十：Llama 3 8B（2024）是 32 层，70B 是 80 层，更大的模型更深些。注意**每层的参数是独立的，不共享**——这一点和 RNN 反复复用同一组权重正好相反。
+4. **N 个结构相同的 block**——每个 block 是「attention 子层 + FFN 子层」，各自配残差和归一化。$N$ 通常几十：Qwen3-8B 是 36 层，更大的模型更深些。注意**每层的参数是独立的，不共享**——这一点和 RNN 反复复用同一组权重正好相反。
 5. **末尾再归一化一次**。
 6. **lm_head（unembedding）**——一个 `[d, vocab_size]` 的矩阵，把每个位置的 $d$ 维向量映回词表大小的一串分数，这串分数叫 logits。
 7. **Softmax 加采样**——logits 变成概率分布，按采样参数挑出一个 token，见 [[04-采样参数]] 和 [[05-logprobs 与置信度]]。
@@ -172,7 +172,7 @@ decoder-only 模型里，位置 $i$ 只允许看 $\le i$ 的位置。实现就�
 
 ### Block 是什么
 
-先把术语对齐：**block、层（layer）、transformer layer、decoder layer 说的是同一个东西**。前面讲「Llama 3 8B 有 32 层」，指的就是 32 个 block 串成一条链，不是 32 次矩阵乘法。原论文管这个重复单元叫 layer，管它内部的 attention 和 FFN 叫 sublayer（子层）；社区后来更常用 block 指前者。这个歧义绊过很多人——看到「层」先确认说的是哪一级。
+先把术语对齐：**block、层（layer）、transformer layer、decoder layer 说的是同一个东西**。前面讲「Qwen3-8B 有 36 层」，指的就是 36 个 block 串成一条链，不是 36 次矩阵乘法。原论文管这个重复单元叫 layer，管它内部的 attention 和 FFN 叫 sublayer（子层）；社区后来更常用 block 指前者。这个歧义绊过很多人——看到「层」先确认说的是哪一级。
 
 三句话概括它：
 
