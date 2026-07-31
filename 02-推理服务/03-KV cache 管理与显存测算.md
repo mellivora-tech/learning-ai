@@ -20,15 +20,15 @@ $$
 \text{KV 字节} = 2 \times L \times H_{kv} \times d_h \times S \times B \times \text{dtype}
 $$
 
-| 符号 | 是什么 | 从哪儿来 |
-| --- | --- | --- |
-| 2 | K 一份、V 一份 | 固定 |
-| $L$ | 层数 | `num_hidden_layers` |
-| $H_{kv}$ | KV 头数 | `num_key_value_heads`（**不是** `num_attention_heads`） |
-| $d_h$ | 每个头的维度 | `head_dim`，或 `hidden_size / num_attention_heads` |
-| $S$ | 序列长度 | 你的业务，输入 + 输出 |
-| $B$ | 并发数 | 你的业务 |
-| dtype | 每个数几字节 | BF16 是 2，FP8 是 1 |
+| 符号       | 是什么       | 从哪儿来                                                |
+| -------- | --------- | --------------------------------------------------- |
+| 2        | K 一份、V 一份 | 固定                                                  |
+| $L$      | 层数        | `num_hidden_layers`                                 |
+| $H_{kv}$ | KV 头数     | `num_key_value_heads`（**不是** `num_attention_heads`） |
+| $d_h$    | 每个头的维度    | `head_dim`，或 `hidden_size / num_attention_heads`    |
+| $S$      | 序列长度      | 你的业务，输入 + 输出                                        |
+| $B$      | 并发数       | 你的业务                                                |
+| dtype    | 每个数几字节    | BF16 是 2，FP8 是 1                                    |
 
 最容易错的是 $H_{kv}$：**用成 `num_attention_heads` 会把结果放大好几倍**。现在的模型基本都用 GQA，这两个数不一样，见 [[02-KV cache 为什么存在]]。
 
