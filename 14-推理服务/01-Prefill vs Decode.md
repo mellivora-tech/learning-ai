@@ -17,6 +17,8 @@ Prefill 一次并行处理整段输入、卡在算力上；decode 一次只出�
 
 ## 原理
 
+![[prefill 与 decode 的分野.excalidraw.md|700]]
+
 ### 两段在做什么
 
 ![[Prefill 与 Decode 的分工.excalidraw.md|700]]

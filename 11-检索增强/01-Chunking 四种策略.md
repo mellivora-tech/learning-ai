@@ -51,6 +51,8 @@ aliases:
 
 ### parent-child 解决的是什么
 
+![[parent-child 切法.excalidraw.md|700]]
+
 小块检索准（信息密度高、噪声少），大块上下文全（模型能看懂前后文）。parent-child 把两者分开：
 
 - **索引小块**（比如 256 token）用于向量检索
@@ -70,7 +72,7 @@ aliases:
 
 **late chunking** 的做法是：先让长上下文 embedding 模型看完整篇、产出每个 token 的向量，**然后再按块聚合**。这样每个块的向量里已经带了全文语境，「它」的指代信息保住了。
 
-实测在**代词和指代较多的文档**上能提升 10–12%。代价是需要长上下文的 embedding 模型，而且整篇一次编码的成本更高。
+收益集中在**代词和跨段指代较多的文档**上——原论文在多个检索基准上都报了提升，但幅度随语料的指代密度变化很大，**别照抄某个百分比，拿自己那批文档测**。代价是需要长上下文的 embedding 模型，而且整篇一次编码的成本更高。
 
 ### contextual retrieval：性价比最高的一招
 
@@ -82,7 +84,9 @@ aliases:
              讨论的是华东区表现。营收增长了 3%。」
 ```
 
-有研究报告这一招能把**检索失败率降低 49%**，**配合重排能降 67%**。
+Anthropic 在 [Introducing Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval)（2024 年 9 月）里报了一组数：以 **1 − recall@20** 为口径，contextual embeddings 单用降低失败率 35%（5.7% → 3.7%），**配上 contextual BM25 降 49%**（→ 2.9%），**再加重排降 67%**（→ 1.9%）。
+
+注意这三档是**叠加**的，不是三种可选方案——最后那个 67% 需要你同时做完混合检索和重排。
 
 代价是索引时要给每个块调一次模型生成上下文——一次性成本，但对大语料不便宜。**不过这是索引期成本，不是查询期成本**，通常划算，见 [[04-成本归因与每次成功任务成本]]。
 
@@ -147,6 +151,7 @@ aliases:
 | 年份 | 工作 | 人与机构 | 在本篇的位置 |
 | --- | --- | --- | --- |
 | 2024 | [Late Chunking: Contextual Chunk Embeddings Using Long-Context Embedding Models](https://arxiv.org/abs/2409.04701) | Michael Günther 等，Jina AI | 第四种切法「先编码后切分」的原始思路 |
+| 2024 | [Introducing Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval) | Anthropic | contextual retrieval 那一节的三档数字（35% / 49% / 67%），口径是 1 − recall@20 |
 | 2026 | [Chunking Methods on Retrieval-Augmented Generation — Effectiveness Evaluation Against Computational Cost and Limitations](https://arxiv.org/abs/2606.00881) | Mateusz Śmigielski 等，弗罗茨瓦夫理工大学人工智能系 | 「朴素的那个差不到哪儿去」整节，那张八种切法的 Accuracy@5 表逐行来自这篇 |
 
 那张表的口径要看清：**Accuracy@5、八个问答数据集上的平均值**。换个指标（比如 NDCG）或换个领域，名次会动——**别把这张表当成结论，把它当成基线的形状**。自己的数据上重跑一遍，才是「动手做」第一项要干的事。

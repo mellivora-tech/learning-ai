@@ -15,6 +15,8 @@ aliases:
 
 ## 原理
 
+![[用户信号的两种来源.excalidraw.md|700]]
+
 ### 信号有哪几种
 
 ![[用户信号流入 eval 集.excalidraw.md|700]]
