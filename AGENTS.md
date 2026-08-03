@@ -95,7 +95,9 @@ print("引用了不存在的图:", sorted(used - have) or "无")
 EOF
 
 # 无时间戳的现状断言
-grep -rn --include='*.md' -E '目前最|当前最|现在主流|最新的模型|如今最' . | grep -v AGENTS.md | grep -v 00-总索引.md
+# 「目前/当前/现在 + 最/主流」的各种组合都要盖住——只写 现在主流 会漏掉 目前主流。
+grep -rn --include='*.md' --exclude=AGENTS.md --exclude=00-总索引.md --exclude-dir=_附件 \
+  -E '(目前|当前|现在|眼下|时下)(工程上|的)?(最|主流|用得最多)|最新的模型|如今最|已经成为主流|事实标准' .
 
 # 参考段是不是还停在裸列表（约定要求四列时间线表）
 grep -rlz --include='*.md' -P '## 参考\n(?!\n*\|)' . | tr '\0' '\n' | grep -v _模板
