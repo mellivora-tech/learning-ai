@@ -117,6 +117,11 @@ BGE-M3 那类模型可以**在一次编码里同时产出稠密和稀疏向量**
 - [[03-记忆检索与召回]]
 
 ## 参考
-- [Reciprocal Rank Fusion](https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf) — Cormack 等，2009。RRF 的原始论文，$k=60$ 那个经验值也出自这里
-- [BGE-M3](https://arxiv.org/abs/2402.03216) — 一次编码同时产出稠密与稀疏向量
-- [BM25 综述](https://www.staff.city.ac.uk/~sbrp622/papers/foundations_bm25_review.pdf) — Robertson、Zaragoza，BM25 的完整推导
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2009 | [The Probabilistic Relevance Framework: BM25 and Beyond](https://www.staff.city.ac.uk/~sbrp622/papers/foundations_bm25_review.pdf) | Stephen Robertson、Hugo Zaragoza，微软研究院与雅虎研究院 | BM25 的完整推导——**知道它在算什么，才知道它什么时候比向量强** |
+| 2009 | [Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods](https://research.google/pubs/reciprocal-rank-fusion-outperforms-condorcet-and-individual-rank-learning-methods/) | Gordon Cormack、Charles Clarke、Stefan Büttcher，滑铁卢大学，SIGIR 2009 | RRF 的原始论文，**$k=60$ 那个经验值也出自这里**。全文两页，值得直接读 |
+| 2024 | [M3-Embedding（BGE-M3）](https://arxiv.org/abs/2402.03216) | Jianlv Chen 等，北京智源人工智能研究院 | 一次编码同时产出稠密与稀疏向量，省掉维护两套索引 |
+
+**RRF 之所以是默认选择，在于它只用排名不用分数。** 两路检索的分数量纲根本不可比（余弦相似度 vs BM25 得分），**任何试图加权求和的做法都要先解决归一化，而 RRF 绕开了这个问题**。

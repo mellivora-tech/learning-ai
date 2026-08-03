@@ -110,6 +110,11 @@ vLLM V1 默认开启 chunked prefill——把长 prompt 切成小块，和 decod
 - [[04-成本归因与每次成功任务成本]]
 
 ## 参考
-- [Efficient Memory Management for LLM Serving with PagedAttention](https://arxiv.org/abs/2309.06180) — 块共享机制的原始设计
-- [vLLM 优化与调优](https://docs.vllm.ai/en/stable/configuration/optimization/) — 前缀缓存与 chunked prefill 的参数和已知交互
-- [Preble: Efficient Distributed Prompt Scheduling](https://arxiv.org/abs/2407.00023) — 按前缀相似度调度请求，把命中率进一步做高
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2023 | [Efficient Memory Management for LLM Serving with PagedAttention](https://arxiv.org/abs/2309.06180) | Woosuk Kwon 等，加州大学伯克利分校 | 块共享机制的原始设计——前缀缓存就是块共享的一个直接应用 |
+| 2024 | [Preble: Efficient Distributed Prompt Scheduling for LLM Serving](https://arxiv.org/abs/2407.00023) | Vikranth Srivatsa 等，加州大学圣迭戈分校 | **按前缀相似度调度请求**，把命中率进一步做高——多副本部署时值得看 |
+| — | [vLLM 优化与调优](https://docs.vllm.ai/en/stable/configuration/optimization/) | vLLM 项目 | 前缀缓存与 chunked prefill 的参数和已知交互 |
+
+引擎侧的**机制**在本篇；prompt 该怎么排（静态在前、动态在后）在 [[04-Prompt caching]]。安全侧注意跨租户的时序侧信道，见 [[05-缓存安全与跨租户命中]]。

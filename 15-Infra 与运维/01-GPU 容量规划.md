@@ -127,5 +127,12 @@ $$
 - [[06-硬件要多少钱]]
 
 ## 参考
-- [Auto-Scaling LLMs: Metrics, Policies, and Production Strategies](https://mbrenndoerfer.com/writing/auto-scaling-horizontal-vertical-policies-llm-production) — 显存与算力两个指标要分开监控的论证
-- [vLLM 文档](https://docs.vllm.ai/) — `gpu_memory_utilization` 与 `max_num_seqs` 的确切语义
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2023 | [Efficient Memory Management for LLM Serving with PagedAttention](https://arxiv.org/abs/2309.06180) | Woosuk Kwon 等，加州大学伯克利分校 | 显存能装下多少并发这本账的机制基础，见 [[03-KV cache 管理与显存测算]] |
+| — | [vLLM 文档](https://docs.vllm.ai/) | vLLM 项目 | `gpu_memory_utilization` 与 `max_num_seqs` 的确切语义——**规划时用的假设要和引擎的实际行为对上** |
+
+推算的完整流程与自检脚本：`_练习/03-从一张卡的规格推出它能跑什么.py`。
+
+**容量规划要按显存和算力两条线分别算，取更紧的那条。** 只算显存会漏掉 prefill 密集型流量把算力打满的情况——**两个指标要分开监控**，见 [[02-指标体系]]。

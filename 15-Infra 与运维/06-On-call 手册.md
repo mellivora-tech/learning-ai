@@ -138,5 +138,11 @@ LLM 系统的 on-call 手册要额外覆盖**质量类故障**——那类问题
 - [[06-驱逐与内存压力]]
 
 ## 参考
-- [Site Reliability Engineering](https://sre.google/sre-book/) — on-call 与 runbook 的经典实践
-- [Auto-Scaling LLMs: Metrics, Policies, and Production Strategies](https://mbrenndoerfer.com/writing/auto-scaling-horizontal-vertical-policies-llm-production) — LLM 服务需要盯的指标
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2016 | [Site Reliability Engineering](https://sre.google/sre-book/) | Google SRE 团队 | on-call 轮值与 runbook 的经典实践，本篇结构的来源 |
+
+**LLM 服务的 on-call 比传统服务多一类故障：不报错但质量塌了。** 传统告警全部基于错误率和延迟，这一类一个都不会触发——**所以 runbook 里必须有一条「质量指标异常」的处置路径**，信号来源见 [[03-漂移监控三条线]]，而它的前提是先有基线。
+
+另一个差异是**恢复时间**：冷启动动辄几分钟，「重启一下」这个万能招在这里代价很高，见 [[03-冷启动]]。

@@ -114,6 +114,11 @@ CoT 的本质是**把推理过程当成中间输出**，让模型有更多步来
 - [[12-任务分解策略]]
 
 ## 参考
-- [Chain-of-Thought Prompting](https://arxiv.org/abs/2201.11903) — Wei 等，2022。CoT 的出处
-- [Inverse Scaling in Test-Time Compute](https://arxiv.org/abs/2507.14417) — 增加测试时计算反而变差的现象
-- [Don't Think Twice! Over-Reasoning Impairs Confidence Calibration](https://arxiv.org/abs/2508.15050) — 过度推理损害校准
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2022 | [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903) | Jason Wei 等，Google Research | CoT 的出处，「让它把步骤写出来」这个做法的原始论证 |
+| 2025 | [Inverse Scaling in Test-Time Compute](https://arxiv.org/abs/2507.14417) | Aryo Pradipta Gema 等，爱丁堡大学与 Anthropic | **增加测试时计算反而变差**的现象——CoT 不是单调有益的 |
+| 2025 | [Don't Think Twice! Over-Reasoning Impairs Confidence Calibration](https://arxiv.org/abs/2508.15050) | Romain Lacombe 等，斯坦福大学 | 过度推理损害校准：想得越多，模型对自己错误答案的自信也越高，见 [[05-logprobs 与置信度]] |
+
+**三篇的顺序就是这个话题的祛魅过程**：2022 年发现有用，2025 年两篇分别指出它在什么条件下有害。**别停在第一篇。**

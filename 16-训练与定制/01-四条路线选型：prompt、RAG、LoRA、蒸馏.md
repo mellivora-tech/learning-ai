@@ -128,7 +128,14 @@ RAG 供事实  +  微调塑行为  +  harness 兜底
 - [[03-LoRA 与 QLoRA]]
 - [[07-蒸馏]]
 - [[01-Harness engineering]]
+- [[90-里程碑：窄任务上打平大模型的小模型]]
 
 ## 参考
-- [Fine-Tuning LLMs 2026: LoRA, QLoRA & When to Bother](https://aidevdayindia.org/blogs/fine-tuning-llms-lora-qlora/fine-tuning-llms-lora-qlora.html) — 「八成用检索就能解决」与混合做法的出处
-- [LIMA: Less Is More for Alignment](https://arxiv.org/abs/2305.11206) — 少量样本就能改变行为，佐证「微调改行为不改知识」
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2023 | [LIMA: Less Is More for Alignment](https://arxiv.org/abs/2305.11206) | Chunting Zhou 等，Meta AI | 一千条样本就能改变行为——**佐证「微调改行为、不改知识」**，也就是本篇把「缺知识」和「缺格式」分开的依据 |
+| 2021 | [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685) | Edward J. Hu 等，微软 | 第三条路线的原始论文 |
+| 2015 | [Distilling the Knowledge in a Neural Network](https://arxiv.org/abs/1503.02531) | Geoffrey Hinton、Oriol Vinyals、Jeff Dean，Google | 第四条路线的出处 |
+
+**「大部分需求用检索就能解决」这个判断本篇不给具体比例**——它高度依赖业务，任何百分比都是别人的数。**判据是可操作的**：先问缺的是知识还是行为。缺知识（模型不知道你的业务事实）→ RAG；缺行为（格式、语气、判断口径）→ 微调。**这个问题答错，后面选什么都是错的。**

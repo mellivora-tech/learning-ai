@@ -124,5 +124,11 @@ Harness 是模型周围那一圈脚手架——工具、验证器、重试、环
 - [[90-里程碑：harness 版 vs 裸 prompt 对比报告]]
 
 ## 参考
-- [Context Engineering: Agent Reliability Playbook 2026](https://www.digitalapplied.com/blog/context-engineering-agent-reliability-playbook-2026) — 四类 agent 失败模式与对应的工程手段
-- [SWE-bench](https://arxiv.org/abs/2310.06770) — 这个基准上的分数差异，很大一部分来自 harness 而非模型本身
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2023 | [SWE-bench: Can Language Models Resolve Real-World GitHub Issues?](https://arxiv.org/abs/2310.06770) | Carlos E. Jimenez、John Yang 等，普林斯顿大学 | 这个基准上的分数差异很大一部分来自 harness 而非模型本身——同一个模型换套脚手架，分数能差出好几档 |
+| 2024 | [SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering](https://arxiv.org/abs/2405.15793) | John Yang、Carlos E. Jimenez 等，普林斯顿大学 | 上一条的直接证明：同一批作者把 harness 单独拿出来做成研究对象，「agent-computer interface」这个提法就是本篇说的 harness |
+| 2025 | [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) | Anthropic | 上下文预算分配的工程做法 |
+
+SWE-bench 与 SWE-agent 是同一批人先后做的，**这个顺序本身就是本篇的论据**：先做出基准，发现分数波动大得不像模型差异，然后才把脚手架单独拎出来当研究对象。

@@ -106,6 +106,11 @@ $$
 - [[07-位置编码与长度外推]]
 
 ## 参考
-- [Fast Transformer Decoding: One Write-Head is All You Need](https://arxiv.org/abs/1911.02150) — Shazeer，2019。MQA 的出处，也是把 KV cache 当成核心瓶颈来处理的开端
-- [GQA: Training Generalized Multi-Query Transformer Models](https://arxiv.org/abs/2305.13245) — Ainslie 等，2023。MHA 与 MQA 之间的折中
-- [Efficient Memory Management for LLM Serving with PagedAttention](https://arxiv.org/abs/2309.06180) — vLLM 论文，第 2 节把 KV cache 的增长特性讲得很清楚
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2019 | [Fast Transformer Decoding: One Write-Head is All You Need](https://arxiv.org/abs/1911.02150) | Noam Shazeer，Google（独作） | MQA 的出处，也是「KV cache 太大」这个问题第一次被当成主要矛盾来解 |
+| 2023 | [GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints](https://arxiv.org/abs/2305.13245) | Joshua Ainslie 等，Google Research | MHA / MQA / GQA 三者的质量与显存权衡，现在几乎所有开源模型选 GQA 的依据 |
+| 2023 | [Efficient Memory Management for Large Language Model Serving with PagedAttention](https://arxiv.org/abs/2309.06180) | Woosuk Kwon 等，加州大学伯克利分校 | 第 2 节把 KV cache 的碎片与浪费量化了出来，是「为什么要分页」的动机 |
+
+**三篇的顺序就是这个问题的演化**：先发现 KV cache 撑不住（2019），再从模型结构上把它做小（2023），最后从显存管理上把浪费掉的那部分抠回来（2023）。前两条改模型，第三条不改模型——**分清这一点，才知道哪个优化需要重训**。

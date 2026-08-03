@@ -1,7 +1,7 @@
 ---
 tags:
   - ai工程/产品
-stage: 9
+stage: 10
 status: todo
 aliases:
   - 用户信号
@@ -134,5 +134,10 @@ aliases:
 - [[90-里程碑：用户信号自动流入 eval 集的闭环]]
 
 ## 参考
-- [Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) — 从线上失败反推 eval 样本的流程
-- [What We've Learned From A Year of Building with LLMs](https://applied-llms.org/) — 用户反馈的噪声与数据飞轮的实践
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2024 | [Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) | Hamel Husain | **从线上失败反推 eval 样本**的流程 |
+| 2024 | [What We've Learned From A Year of Building with LLMs](https://applied-llms.org/) | Eugene Yan、Bryan Bischof、Hamel Husain 等六人 | 用户反馈的噪声与数据飞轮的实践 |
+
+**隐式信号比显式反馈可靠得多。** 点赞点踩的样本量小且偏斜（只有很满意和很生气的人会点），而**用户改了什么、重试了几次、复制了哪一段**是全量的、无需额外动作的。前提是交互设计阶段就把这些动作记下来，**事后补不回来**，见 [[03-HITL 交互设计]]。

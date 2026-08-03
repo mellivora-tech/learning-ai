@@ -54,27 +54,51 @@ d.save("我的图")     # 写到 _附件/，并打印该用的嵌入语法
 
 ```bash
 # 断链：wikilink 指向不存在的笔记
+# 会先剥掉代码块与行内代码——写作约定里举语法例子时会出现 [[名字.excalidraw.md]] 这类
+# 不该被当成真链接的东西，不剥就是常驻误报。
 python3 - <<'EOF'
 import os, re
-notes, alias = set(), set()
+def strip_code(s):
+    return re.sub(r'`[^`\n]*`', '', re.sub(r'```.*?```', '', s, flags=re.S))
+notes, alias, files = set(), set(), []
 for r, ds, fs in os.walk("."):
     ds[:] = [d for d in ds if d not in (".obsidian", ".git")]
     for f in fs:
         if not f.endswith(".md"): continue
+        p = os.path.join(r, f)
+        files.append(p)
         notes |= {f[:-3], f}
-        m = re.search(r'^---\n(.*?)\n---', open(os.path.join(r, f), encoding="utf-8").read(), re.S)
+        m = re.search(r'^---\n(.*?)\n---', open(p, encoding="utf-8").read(), re.S)
         if m:
             am = re.search(r'^aliases:\n((?:  - .*\n)+)', m.group(1) + "\n", re.M)
             if am: alias |= {a.strip() for a in re.findall(r'  - (.*)', am.group(1))}
-bad = {(f, l.strip()) for r, ds, fs in os.walk(".") if ".obsidian" not in r and ".git" not in r
-       for f in fs if f.endswith(".md")
-       for l in re.findall(r'\[\[([^\]|#]+)', open(os.path.join(r, f), encoding="utf-8").read())
+bad = {(os.path.basename(p), l.strip()) for p in files
+       for l in re.findall(r'\[\[([^\]|#]+)', strip_code(open(p, encoding="utf-8").read()))
        if l.strip() not in notes and l.strip() not in alias}
 print(sorted(bad) or "断链: 无")
 EOF
 
+# 附件：有没有生成了却没人引用的图，或者引用了不存在的图
+python3 - <<'EOF'
+import os, re
+strip_code = lambda s: re.sub(r'`[^`\n]*`', '', re.sub(r'```.*?```', '', s, flags=re.S))
+used = set()
+for r, ds, fs in os.walk("."):
+    ds[:] = [d for d in ds if not d.startswith(".") and d != "_附件"]
+    for f in fs:
+        if f.endswith(".md"):
+            body = strip_code(open(os.path.join(r, f), encoding="utf-8").read())
+            used |= {m.split("|")[0] for m in re.findall(r'!\[\[([^\]]+)\]\]', body)}
+have = {f for f in os.listdir("_附件") if f.endswith(".md")}
+print("未被引用的图:", sorted(have - used) or "无")
+print("引用了不存在的图:", sorted(used - have) or "无")
+EOF
+
 # 无时间戳的现状断言
 grep -rn --include='*.md' -E '目前最|当前最|现在主流|最新的模型|如今最' . | grep -v AGENTS.md | grep -v 00-总索引.md
+
+# 参考段是不是还停在裸列表（约定要求四列时间线表）
+grep -rlz --include='*.md' -P '## 参考\n(?!\n*\|)' . | tr '\0' '\n' | grep -v _模板
 ```
 
 还要过一遍 [00-总索引](00-总索引.md) 里「按读者的视野写」那三条自检，尤其是搜 `这篇` `本文` `这个库` `后面会讲`。

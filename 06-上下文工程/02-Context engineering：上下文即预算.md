@@ -19,6 +19,8 @@ context engineering 要回答的是**「这一刻窗口里该放什么」**—�
 
 ![[上下文预算与衰减.excalidraw.md|700]]
 
+![[上下文的零和分配.excalidraw.md|700]]
+
 一个典型 agent 的窗口里同时住着：系统提示与工具定义、长期记忆、检索到的材料、对话历史、本轮输入，还要给输出留位置。
 
 **它们是零和的。** 多召回 5 篇文档，就得少留几轮对话历史。这个取舍每一轮都在发生，只是多数系统没有显式管理它——直到窗口满了才发现。
@@ -27,7 +29,7 @@ context engineering 要回答的是**「这一刻窗口里该放什么」**—�
 
 这一点是全部工程动机的来源。
 
-Anthropic 把这个现象叫 **context rot**：随着会话变长，性能**非线性、不可预测**地下降。有实测发现，12 个被测模型里有 11 个，在会话超过 32,000 token 之后掉到短上下文表现的**一半以下**。不同任务上报告的退化幅度从 13.9% 到 85% 不等。
+Chroma Research 把这个现象叫 **context rot**：随着会话变长，性能**非线性、不可预测**地下降。[NoLiMa](https://arxiv.org/abs/2502.05167)（Modarressi 等，慕尼黑大学与 Adobe Research，2025）实测：12 个被测模型里有 10 个，上下文到 32K 时掉到自己短上下文基线的**一半以下**——连 GPT-4o 都从 99.3% 掉到 69.7%。展开见 [[06-上下文衰减与长轮次退化]]。
 
 > [!warning] 这不是「窗口不够大」的问题
 > 信息全都还在窗口里，模型就是用不好。**有效表现会在技术上限之前很久就开始衰减**，根子在注意力架构本身，不是 token 数不够。
@@ -122,6 +124,11 @@ budget:
 - [[05-Prefix caching]]
 
 ## 参考
-- [Diagnosing and Mitigating Context Rot in Long-horizon Search](https://arxiv.org/abs/2606.29718) — context rot 的机制分析
-- [Agent Context Engineering 2026](https://agentmarketcap.ai/blog/2026/04/11/agent-context-engineering-sliding-windows-memory-2026) — 滑窗、分层摘要、记忆外置三类手段的对比
-- [Context Engineering: Agent Reliability Playbook 2026](https://www.digitalapplied.com/blog/context-engineering-agent-reliability-playbook-2026) — 本篇那组 32k 退化数据的出处
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2023 | [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172) | Nelson F. Liu 等，斯坦福、加州大学伯克利分校与 Samaya AI | 「放在哪儿比放不放得下更重要」——预算分配这件事有物理依据，不只是省钱 |
+| 2025 | [NoLiMa: Long-Context Evaluation Beyond Literal Matching](https://arxiv.org/abs/2502.05167) | Ali Modarressi 等，慕尼黑大学与 Adobe Research | 32K 处 10/12 个模型掉到基线一半以下、GPT-4o 从 99.3% 到 69.7% |
+| 2025 | [Context Rot: How Increasing Input Tokens Impacts LLM Performance](https://research.trychroma.com/context-rot) | Kelly Hong、Anton Troynikov、Jeff Huber，Chroma Research | 「context rot」这个名字，以及退化是非线性、不可预测的这个性质 |
+| 2025 | [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) | Anthropic | 把上下文当有限预算来分配的工程做法 |
+| 2026 | [Diagnosing and Mitigating Context Rot in Long-horizon Search](https://arxiv.org/abs/2606.29718) | Shijie Xia 等 | 机制分析与缓解手段 |

@@ -142,6 +142,10 @@ SFT 的损失函数和预训练一样是交叉熵，区别只在**只在回答�
 - [[07-数据版本化]]
 
 ## 参考
-- [LIMA: Less Is More for Alignment](https://arxiv.org/abs/2305.11206) — 一千条高质量样本的效果
-- [LLM Fine-Tuning Guide 2026](https://futureagi.com/blog/llm-fine-tuning-guide-2025/) — 数据构造与混入通用数据的实践建议
-- [InstructGPT](https://arxiv.org/abs/2203.02155) — SFT 数据的原始设计思路
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2022 | [Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155) | Long Ouyang 等，OpenAI | InstructGPT，SFT 数据的原始设计思路与标注规范的组织方式 |
+| 2023 | [LIMA: Less Is More for Alignment](https://arxiv.org/abs/2305.11206) | Chunting Zhou 等，Meta AI | **一千条高质量样本的效果**——本篇「宁可少而精」这条的直接依据 |
+
+**质量远重于数量，这是本篇唯一需要记住的结论。** 一条格式不一致的样本能抵消几十条正确样本的效果，因为模型会把不一致当成「这里可以随意」。**标注规范和一致率的做法见 [[05-标注流程]]**，那套东西在训练场景比在评估场景更要紧。

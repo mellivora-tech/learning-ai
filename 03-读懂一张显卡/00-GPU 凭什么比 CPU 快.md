@@ -1,7 +1,7 @@
 ---
 tags:
   - ai工程/显卡
-stage: 0
+stage: 0.6
 status: todo
 aliases:
   - GPU 是什么
@@ -89,5 +89,10 @@ GPU 用几万个弱核换掉了 CPU 的几十个强核，只在「一万件一�
 - [[01-Transformer 与 attention]]
 
 ## 参考
-- [CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/) — SIMT 与线程束分化的官方说明
-- [NVIDIA H100 Architecture Whitepaper](https://resources.nvidia.com/en-us-tensor-core) — 一张卡内部到底长什么样
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| — | [CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/) | NVIDIA | SIMT 执行模型与线程束分化的官方说明——**「同一个 warp 里走了不同分支就要串行执行两遍」**那段的出处 |
+| — | [NVIDIA Tensor Core 架构资料](https://resources.nvidia.com/en-us-tensor-core) | NVIDIA | 一张卡内部到底长什么样：SM、Tensor Core、显存层级的组织方式 |
+
+**CUDA 的护城河不在这两份文档里**，而在它们之上近二十年积累的库与工具（cuDNN、cuBLAS、Nsight）。**硬件规格可以几年追上，那一层不能**，见 [[05-国产卡与生态差距]]。

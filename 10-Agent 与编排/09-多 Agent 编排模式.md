@@ -9,7 +9,7 @@ aliases:
   - pipeline
   - multi-agent
 ---
-「多个智能体协作」听起来很先进。实测下来，三个 agent 的 supervisor 方案可能要花单 agent 四到六倍的钱。
+「多个智能体协作」听起来很先进。而按 Anthropic 公布的基准，多 agent 系统烧的 token 大约是普通对话的 15 倍、单 agent 的近 4 倍。
 
 ## 一句话
 
@@ -29,10 +29,17 @@ aliases:
 
 ### 成本要先摆出来
 
-这是最容易被忽略的一面：
+这是最容易被忽略的一面。Anthropic 在[介绍自己的多 agent 研究系统](https://www.anthropic.com/engineering/multi-agent-research-system)（2025）时给了一组基准倍数：
 
-- **三个 agent 的 supervisor 方案，成本可能是单 agent 的四到六倍**——协调者本身也要调模型，而且每次路由都是一次调用
-- **交接式 swarm 在跨领域任务上要 7 次以上调用、14000 以上 token**，而带并行的子 agent 模式约 5 次调用、9000 token
+| 形态 | token 用量（相对普通对话） |
+| --- | --- |
+| 普通对话 | 1× |
+| 单 agent | 约 **4×** |
+| 多 agent 系统 | 约 **15×** |
+
+**从单 agent 到多 agent，是又一个近四倍。** 钱花在哪儿很清楚：协调者本身每次路由都是一次模型调用，每个子 agent 都要重新装一遍自己的上下文，结果回传还要再总结一次。
+
+他们给出的判据也很直接：多 agent 只适合**任务价值高到付得起这份开销**的场景，且要求任务能真正并行、信息量超出单个上下文窗口、需要接很多复杂工具。反过来，**需要所有 agent 共享同一份上下文、或 agent 之间依赖很多的领域不适合**——他们点名了编码任务，因为真正可并行的部分比研究类任务少得多。
 
 所以顺序应该是：
 
@@ -103,7 +110,7 @@ aliases:
 ## 动手做
 
 - [ ] 同一个任务分别用单 agent、流水线、supervisor 实现，对比成本与成功率
-- [ ] 量出 supervisor 相对单 agent 的成本倍数，看是不是也在四到六倍区间
+- [ ] 量出 supervisor 相对单 agent 的 token 倍数，和 4× / 15× 那组基准对一下，差得远就去查是哪一段在膨胀
 - [ ] 判断每个子任务：它的中间过程主流程需不需要看见
 - [ ] 实现预算沿调用链传递累加，用嵌套子 agent 验证
 - [ ] 验证 trace 能跨 agent 串成一棵树，成本能归因到子 agent
@@ -135,8 +142,14 @@ aliases:
 - [[12-任务分解策略]]
 - [[03-隔离模式（dual-LLM）]]
 - [[01-Trace 与 Span]]
+- [[91-里程碑：supervisor + sub-agent 上下文隔离系统]]
 
 ## 参考
-- [Swarm vs. Supervisor: Multi-Agent Architecture Guide](https://www.augmentcode.com/guides/swarm-vs-supervisor) — 两种模式的适用场景与那组成本数据的出处
-- [Agent Architecture Patterns: 2026 Taxonomy](https://www.digitalapplied.com/blog/agent-architecture-patterns-taxonomy-2026) — 各类编排模式的分类
-- [SwarmSys](https://arxiv.org/abs/2510.10047) — 去中心化 swarm 的一种具体设计
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2023 | [AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation](https://arxiv.org/abs/2308.08155) | Qingyun Wu、Gagan Bansal 等，微软研究院与宾夕法尼亚州立大学 | 把「多个 agent 对话着把活干完」做成通用框架的代表作，supervisor 与 swarm 两种组织方式在它的抽象里都能表达 |
+| 2025 | [How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system) | Anthropic | 成本那张表的全部三个倍数（1× / 4× / 15×），以及「什么时候值得上多 agent」那段判据 |
+| 2025 | [SwarmSys: Decentralized Swarm-Inspired Agents for Scalable and Adaptive Reasoning](https://arxiv.org/abs/2510.10047) | Ruohao Li 等 | 去中心化 swarm 的一种具体设计 |
+
+Anthropic 那组倍数是在**研究类任务**上测的，那正是多 agent 最擅长的场景。**换到并行度低的任务上，倍数只会更难赚回来**——所以把它当下限看，别当典型值。

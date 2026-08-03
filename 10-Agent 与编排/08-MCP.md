@@ -118,8 +118,16 @@ MCP 把外部能力接进来的同时，也把外部内容接进来了。三个�
 - [[01-间接提示注入与 20 条攻击载荷]]
 - [[02-纵深防御]]
 - [[09-多 Agent 编排模式]]
+- [[11-Computer use]]
 
 ## 参考
-- [The 2026-07-28 Specification](https://blog.modelcontextprotocol.io/posts/2026-07-28/) — 无状态改版的完整说明，本篇所有变更点的出处
-- [MCP 规范](https://modelcontextprotocol.io/specification/2026-07-28) — 当前版本的规范正文
-- [MCP 版本时间线](https://hidekazu-konishi.com/entry/mcp_specification_version_timeline.html) — 历次改版与采用里程碑
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2026 | [The 2026-07-28 Specification](https://blog.modelcontextprotocol.io/posts/2026-07-28/) | MCP 项目 | 无状态改版的完整说明，**本篇所有变更点的出处** |
+| 2026 | [MCP 规范正文](https://modelcontextprotocol.io/specification/2026-07-28) | MCP 项目 | 当前版本的规范本体，实现时以它为准 |
+| — | [MCP 版本时间线](https://hidekazu-konishi.com/entry/mcp_specification_version_timeline.html) | Hidekazu Konishi | 历次改版与采用里程碑，判断某个特性从哪一版开始可用 |
+
+> [!warning] MCP 规范仍在快速改版
+> 本篇按 2026-07-28 版写。**动手前先看上面第一个链接有没有更新的版本**——这个协议的改版频率远高于本库其他主题。
+> 安全侧尤其别照抄：第三方 MCP server 是别人的代码跑在你的进程里，且工具描述直接进上下文，见 [[05-依赖安全]]。

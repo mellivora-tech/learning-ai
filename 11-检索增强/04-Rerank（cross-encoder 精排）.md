@@ -132,6 +132,11 @@ aliases:
 - [[08-工具数量与工具检索]]
 
 ## 参考
-- [Sentence-BERT](https://arxiv.org/abs/1908.10084) — 第 2 节把 bi-encoder 与 cross-encoder 的取舍讲得最清楚
-- [BGE Reranker](https://huggingface.co/BAAI/bge-reranker-v2-m3) — 中文场景常用的开源重排模型
-- [nDCG](https://en.wikipedia.org/wiki/Discounted_cumulative_gain) — 排序质量指标的定义
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2000 | [nDCG](https://en.wikipedia.org/wiki/Discounted_cumulative_gain) | Kalervo Järvelin、Jaana Kekäläinen，坦佩雷大学 | 排序质量指标的定义——**衡量重排收益要用它，而不是 recall@k**，因为重排不改变召回集合、只改变顺序 |
+| 2019 | [Sentence-BERT](https://arxiv.org/abs/1908.10084) | Nils Reimers、Iryna Gurevych，达姆施塔特工业大学 | **第 2 节把 bi-encoder 与 cross-encoder 的取舍讲得最清楚**：后者精度高但没法预先建索引，这就是「只能用来重排前 k 个」的原因 |
+| — | [BGE Reranker v2-m3](https://huggingface.co/BAAI/bge-reranker-v2-m3) | 北京智源人工智能研究院 | 中文场景常用的开源重排模型 |
+
+**重排的成本随 k 线性增长，收益却很快见顶。** 先用 nDCG 扫一遍 k=10/20/50 的曲线，**找到收益拐点再定值**——盲目取 k=100 是纯烧钱。

@@ -152,5 +152,11 @@ dual-LLM 改变的不是这个概率，而是**成功之后能做什么**：
 - [[10-沙箱化代码执行]]
 
 ## 参考
-- [Parallax: Why AI Agents That Think Must Never Act](https://arxiv.org/abs/2604.12986) — 思考与执行分离的系统性论证
-- [Indirect Prompt Injection: 2026 State of the Art](https://zylos.ai/research/2026-04-12-indirect-prompt-injection-defenses-agents-untrusted-content/) — 隔离模式在各类防御中的定位
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2023 | [The Dual LLM pattern for building AI assistants that can resist prompt injection](https://simonwillison.net/2023/Apr/25/dual-llm-pattern/) | Simon Willison，Datasette 作者、Django 联合创始人 | 「特权 LLM ⊕ 隔离 LLM」这个模式的原始提法，本篇整套结构的来源 |
+| 2025 | [Defeating Prompt Injections by Design](https://arxiv.org/abs/2503.18813) | Edoardo Debenedetti 等，Google DeepMind | 把上面那个模式做成可运行系统的 CaMeL：特权 LLM 只从可信 query 生成执行计划，隔离 LLM 处理不可信数据且拿不到工具，中间由自定义解释器追踪数据来源并在每次工具调用前查策略。在 AgentDojo 上带可证明的安全性完成 77% 的任务（无防御 84%）。[代码开源](https://github.com/google-research/camel-prompt-injection) |
+| 2026 | [Parallax: Why AI Agents That Think Must Never Act](https://arxiv.org/abs/2604.12986) | Joel Fokou | 思考与执行分离的系统性论证 |
+
+**从 2023 年的一篇博客到 2025 年带可证明安全性的实现，中间隔的是「谁来追踪数据来源」这个工程问题。** 模式本身两年前就说清楚了，难的是那个解释器。

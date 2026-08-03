@@ -124,6 +124,11 @@ SFT 最大化「正确答案」的似然，见 [[08-预训练、后训练、对�
 - [[05-logprobs 与置信度]]
 
 ## 参考
-- [Direct Preference Optimization](https://arxiv.org/abs/2305.18290) — Rafailov 等，2023。跳过奖励模型的推导
-- [DeepSeekMath](https://arxiv.org/abs/2402.03300) — GRPO 的出处
-- [Reinforcement Learning for LLM Post-Training: A Survey](https://arxiv.org/abs/2407.16216) — 各类方法的系统梳理
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2023 | [Direct Preference Optimization: Your Language Model is Secretly a Reward Model](https://arxiv.org/abs/2305.18290) | Rafael Rafailov 等，斯坦福大学 | **跳过奖励模型的推导**，本篇主线 |
+| 2024 | [DeepSeekMath](https://arxiv.org/abs/2402.03300) | Zhihong Shao 等，DeepSeek 与清华大学 | GRPO 的出处：再去掉价值网络，用组内相对优势替代 |
+| 2024 | [Reinforcement Learning for LLM Post-Training: A Survey](https://arxiv.org/abs/2407.16216) | Zhichao Wang 等 | 各类方法的系统梳理，判断该用哪个时的地图 |
+
+**这条线的方向是一路做减法**：PPO 要奖励模型加价值网络，DPO 去掉前者，GRPO 去掉后者。**看到新方法先问它省掉了哪个零件、代价是什么**——通常代价是对数据质量更敏感，见 [[05-奖励建模]]。

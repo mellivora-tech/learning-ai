@@ -127,5 +127,11 @@ JSON 解析失败率突然涨了。团队花两周改提示词，最后发现是
 - [[03-KV cache 管理与显存测算]]
 
 ## 参考
-- [vLLM 文档](https://docs.vllm.ai/) — `finish_reason` 的取值与流式返回中的位置
-- [JSONSchemaBench](https://arxiv.org/abs/2501.10868) — 结构化输出的失败形态分类
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2025 | [JSONSchemaBench](https://arxiv.org/abs/2501.10868) | Saibo Geng 等，洛桑联邦理工学院 | 结构化输出的失败形态分类——截断只是其中一类，但它是**唯一一类会伪装成成功**的 |
+
+接口语义：[vLLM 文档](https://docs.vllm.ai/) 里 `finish_reason` 的取值与它在流式返回中出现的位置。
+
+**各家 API 的字段名和取值不完全一致**（`finish_reason` / `stop_reason` / `done_reason`），迁移时这是最容易漏的一处。**写一个统一的归一化函数收在一处**，别在业务代码里各判各的。

@@ -145,6 +145,11 @@ curl localhost:8000/metrics | grep -E 'gpu_cache_usage|num_requests'
 - [[09-量化]]
 
 ## 参考
-- [Efficient Memory Management for LLM Serving with PagedAttention](https://arxiv.org/abs/2309.06180) — vLLM 论文，KV cache 浪费的量化分析在第 2、3 节
-- [vLLM 文档](https://docs.vllm.ai/) — `gpu_memory_utilization`、`max_model_len`、`max_num_seqs` 的确切语义
-- [Qwen3-8B config.json](https://huggingface.co/Qwen/Qwen3-8B/blob/main/config.json) — 本篇手算用到的那四个数
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2023 | [Efficient Memory Management for LLM Serving with PagedAttention](https://arxiv.org/abs/2309.06180) | Woosuk Kwon 等，加州大学伯克利分校 | **KV cache 浪费的量化分析在第 2、3 节**——本篇说「不分页时大部分显存是浪费的」的依据 |
+| — | [Qwen3-8B 的 `config.json`](https://huggingface.co/Qwen/Qwen3-8B/blob/main/config.json) | 阿里巴巴通义千问团队 | 本篇手算用到的那四个数：层数 36、KV 头数 8、head_dim 128、BF16 |
+| — | [vLLM 文档](https://docs.vllm.ai/) | vLLM 项目 | `gpu_memory_utilization`、`max_model_len`、`max_num_seqs` 的确切语义 |
+
+手算的完整流程与自检脚本见 `_练习/03-从一张卡的规格推出它能跑什么.py`——**第 2 关专门用一个构造用例卡住「KV 头数用成注意力头数」这个错误**，那是这本账最常算错的一处。

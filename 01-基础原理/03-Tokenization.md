@@ -146,7 +146,13 @@ print(len(tok.encode("我把苹果削了皮")))
 - [[02-开源权重包里有什么]]
 
 ## 参考
-- [Neural Machine Translation of Rare Words with Subword Units](https://arxiv.org/abs/1508.07909) — Sennrich 等，2015。把 BPE 引入 NLP 的那篇
-- [Language Models are Unsupervised Multitask Learners](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf) — GPT-2 论文，字节级 BPE 的出处，2.2 节
-- [tiktokenizer](https://tiktokenizer.vercel.app/) — 在线看不同 tokenizer 怎么切同一段文本，最快建立直觉的工具
-- [AI 大模型的「中文税」](https://www.geekpark.net/news/363717) — 中英 token 比值那组实测数据的出处
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2015 | [Neural Machine Translation of Rare Words with Subword Units](https://arxiv.org/abs/1508.07909) | Rico Sennrich、Barry Haddow、Alexandra Birch，爱丁堡大学 | 把 BPE 从数据压缩算法搬到 NLP 的那一篇，「为什么不按词也不按字符」这个取舍的出处 |
+| 2019 | [Language Models are Unsupervised Multitask Learners](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf) | Alec Radford 等，OpenAI | GPT-2 论文，byte-level BPE 的落地——它保证了任何字节序列都能被编码，代价就是本篇说的非英文吃亏 |
+
+数据与工具：
+
+- [tiktokenizer](https://tiktokenizer.vercel.app/) — 在线看不同 tokenizer 怎么切同一段文本，最快建立直觉
+- [AI 大模型的「中文税」](https://www.geekpark.net/news/363717) — 中英 token 比值那组实测数据的出处。**这类比值随 tokenizer 版本变**，引用前先自己用上面的工具量一遍

@@ -17,6 +17,8 @@ aliases:
 
 ## 原理
 
+![[trace 与 span 树.excalidraw.md|700]]
+
 ### Trace 和 Span 是什么
 
 **Span** 是一次有始有终的操作，带名字、起止时间、一堆属性。**Trace** 是一次完整请求里所有 span 组成的树。
@@ -120,6 +122,11 @@ trace 数据量很大，尤其是把提示词和输出都存下来的时候。�
 - [[02-审计日志]]
 
 ## 参考
-- [OpenTelemetry GenAI 语义约定](https://opentelemetry.io/docs/specs/semconv/registry/attributes/gen-ai/) — 字段注册表，实现前先查这里
-- [Inside the LLM Call: GenAI Observability with OpenTelemetry](https://opentelemetry.io/blog/2026/genai-observability/) — 官方博客，讲清楚了当前的稳定性状态
-- [OTel 采样文档](https://opentelemetry.io/docs/concepts/sampling/) — 头部采样与尾部采样的区别
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| — | [OpenTelemetry GenAI 语义约定](https://opentelemetry.io/docs/specs/semconv/registry/attributes/gen-ai/) | OpenTelemetry（CNCF） | 字段注册表。**实现前先查这里**，自己发明字段名会让后面换后端时全部返工 |
+| 2026 | [Inside the LLM Call: GenAI Observability with OpenTelemetry](https://opentelemetry.io/blog/2026/genai-observability/) | OpenTelemetry 官方博客 | GenAI 约定当前的稳定性状态——**哪些字段已定稿、哪些还在变** |
+| — | [OTel 采样文档](https://opentelemetry.io/docs/concepts/sampling/) | OpenTelemetry | 头部采样与尾部采样的区别，以及为什么 LLM 场景更需要后者 |
+
+**GenAI 语义约定仍在演进**，本篇按当前版本写。真正稳定的是结构（trace / span / 父子关系），字段名会变——**所以埋点时把字段名收在一处，别散落在业务代码里**。

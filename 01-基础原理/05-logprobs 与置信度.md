@@ -116,6 +116,11 @@ $$
 - [[90-里程碑：极简 attention + KV cache + logprobs 置信度过滤器]]
 
 ## 参考
-- [On Calibration of Modern Neural Networks](https://arxiv.org/abs/1706.04599) — Guo 等，2017。校准曲线与过度自信问题的经典分析
-- [Teaching Models to Express Their Uncertainty in Words](https://arxiv.org/abs/2205.14334) — 语言化的不确定性与 logprob 的对比
-- [Language Models (Mostly) Know What They Know](https://arxiv.org/abs/2207.05221) — 模型自评能力的系统性研究，也给出了它的边界
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2017 | [On Calibration of Modern Neural Networks](https://arxiv.org/abs/1706.04599) | Chuan Guo、Geoff Pleiss 等，康奈尔大学 | 校准曲线与「现代神经网络系统性过度自信」这个现象的经典分析——本篇说 logprob 不能直接当概率读的依据 |
+| 2022 | [Teaching Models to Express Their Uncertainty in Words](https://arxiv.org/abs/2205.14334) | Stephanie Lin、Jacob Hilton、Owain Evans，牛津大学与 OpenAI | 让模型用文字说出把握有多大，和直接读 logprob 的对照 |
+| 2022 | [Language Models (Mostly) Know What They Know](https://arxiv.org/abs/2207.05221) | Saurav Kadavath 等，Anthropic | 模型自评能力的系统性研究，标题里那个「mostly」就是本篇要强调的边界 |
+
+**注意这三篇给的是同一件事的三个角度**：第一篇说输出的概率值本身不可靠，后两篇说模型对自己的判断有一定但有限的自知。**都别当成「有了置信度就能自动过滤」**——阈值必须在你自己的数据上标定。

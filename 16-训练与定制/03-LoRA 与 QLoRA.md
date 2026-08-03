@@ -16,6 +16,8 @@ LoRA 冻住原权重、只训一小撮新增参数，所以省掉的是**梯度�
 
 ## 原理
 
+![[LoRA 低秩分解.excalidraw.md|700]]
+
 ### 省在哪
 
 ![[LoRA 省在哪.excalidraw.md|620]]
@@ -130,7 +132,13 @@ LoRA 是低秩近似，表达能力有上限。以下情况可能需要全参微
 - [[09-量化]]
 
 ## 参考
-- [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685) — Hu 等，2021。原始论文
-- [QLoRA](https://arxiv.org/abs/2305.14314) — Dettmers 等，2023。4-bit 基座 + LoRA
-- [Fine-Tune LLMs with LoRA and QLoRA: 2026 Guide](https://dev.to/jangwook_kim_e31e7291ad98/fine-tune-llms-with-lora-and-qlora-2026-guide-33lf) — rsLoRA 与 target_modules 那两条建议的出处
-- [rsLoRA](https://arxiv.org/abs/2312.03732) — 高秩下的稳定缩放
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2021 | [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685) | Edward J. Hu 等，微软 | 原始论文：**为什么低秩增量就够用**，以及秩与可训练参数量的关系 |
+| 2023 | [QLoRA: Efficient Finetuning of Quantized LLMs](https://arxiv.org/abs/2305.14314) | Tim Dettmers 等，华盛顿大学 | 4-bit 基座 ⊕ LoRA：把单卡能微调的模型规模拉大一个档 |
+| 2023 | [A Rank Stabilization Scaling Factor for Fine-Tuning with LoRA](https://arxiv.org/abs/2312.03732) | Damjan Kalajdzievski（独作） | rsLoRA：**高秩下原始缩放因子会让梯度衰减**，这是「秩调大了反而没变好」的一个真实原因 |
+
+工具：[LLaMA-Factory](https://arxiv.org/abs/2403.13372) 是上手最省事的一个，见 [[01-训练框架与它们的演进]]。
+
+**`target_modules` 该挂哪几层没有普适答案**，各家实践差别很大。**先按框架默认跑通，再做消融**——凭别人博客里的配置直接开工，通常既不是最优也不知道为什么。

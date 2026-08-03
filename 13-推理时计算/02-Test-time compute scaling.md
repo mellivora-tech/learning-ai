@@ -15,6 +15,8 @@ aliases:
 
 ## 原理
 
+![[推理时计算的收益曲线.excalidraw.md|645]]
+
 ### 三种花法
 
 | 做法 | 怎么做 | 特点 |
@@ -120,7 +122,12 @@ aliases:
 - [[01-Harness engineering]]
 
 ## 参考
-- [s1: Simple test-time scaling](https://arxiv.org/abs/2501.19393) — 最简单的推理时扩展做法与它的效果
-- [Inverse Scaling in Test-Time Compute](https://arxiv.org/abs/2507.14417) — 反转现象的系统记录
-- [Does Thinking More Always Help?](https://arxiv.org/abs/2506.04210) — 对「想得多就更好」的质疑
-- [Compute-Accuracy Pareto Frontiers for Open-Source Reasoning LLMs](https://arxiv.org/abs/2512.24776) — 各开源推理模型的算力-准确率前沿
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2025 | [s1: Simple test-time scaling](https://arxiv.org/abs/2501.19393) | Niklas Muennighoff 等，斯坦福大学与华盛顿大学 | 最简单的推理时扩展做法（在生成里插「Wait」强行续想）与它的效果——**说明这条路的门槛比想象中低** |
+| 2025 | [Does Thinking More always Help? Mirage of Test-Time Scaling](https://arxiv.org/abs/2506.04210) | Soumya Suvra Ghosal 等，马里兰大学 | 对「想得多就更好」的系统性质疑 |
+| 2025 | [Inverse Scaling in Test-Time Compute](https://arxiv.org/abs/2507.14417) | Aryo Pradipta Gema 等，爱丁堡大学与 Anthropic | 反转现象的系统记录：**存在一类任务，算得越多错得越多** |
+| 2025 | [Compute-Accuracy Pareto Frontiers for Open-Source Reasoning Large Language Models](https://arxiv.org/abs/2512.24776) | Ákos Prucs 等 | 各开源推理模型的算力-准确率前沿，**「花多少算力换多少准确率」的横向对照** |
+
+**这四篇一起读才不会走偏**：第一篇说这条路很容易走，后三篇说它有明确的收益上限和反转区间。见 [[03-Thinking budget 控制]]。

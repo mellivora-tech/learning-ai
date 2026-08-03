@@ -126,6 +126,13 @@ golden set 要进 git，和代码一起走 review。理由：
 - [[05-怎么给一个任务挑模型]]
 
 ## 参考
-- [promptfoo](https://www.promptfoo.dev/) — MIT 许可、本地跑，最省事的 golden set 执行器之一，自带 CI 门禁与红队能力
-- [DeepEval](https://github.com/confident-ai/deepeval) — 想在代码里定义指标时用它
-- [Ragas](https://docs.ragas.io/) — 检索类任务的指标最有学术依据
+
+**这一篇没有可引的论文，因为 golden set 的价值全在「它来自你的流量」。** 下面三个是执行器，选一个能在本地跑、能进 CI 的即可。
+
+| 工具 | 许可 | 什么时候选它 |
+| --- | --- | --- |
+| [promptfoo](https://www.promptfoo.dev/) | MIT，本地跑 | 默认起点：自带 CI 门禁与红队能力，配置是 YAML，非工程同事也能改 |
+| [DeepEval](https://github.com/confident-ai/deepeval) | Apache 2.0 | 想在代码里定义指标、用 pytest 风格写断言时 |
+| [Ragas](https://docs.ragas.io/) | Apache 2.0 | 检索类任务——它的指标定义最贴近学术原文，见 [[06-检索评估两段式]] |
+
+**别为了选工具卡住。** 100 条标注好的样本比任何框架都值钱，先用它们跑起来，工具随时能换。

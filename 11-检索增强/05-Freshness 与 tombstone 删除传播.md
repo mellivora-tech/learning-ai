@@ -15,6 +15,8 @@ aliases:
 
 ## 原理
 
+![[幽灵文档怎么产生的.excalidraw.md|700]]
+
 ### 三种不一致
 
 | | 现象 | 危害 |
@@ -132,5 +134,10 @@ RAG 系统的数据链路通常是这样：
 - [[02-Embedding 模型选型与评估]]
 
 ## 参考
-- [Milvus 删除机制文档](https://milvus.io/docs/delete-entities.md) — 逻辑删除与物理压缩的区别，别的向量库大同小异
-- [Designing Data-Intensive Applications](https://dataintensive.net/) — 派生数据与源数据的一致性
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2017 | [Designing Data-Intensive Applications](https://dataintensive.net/) | Martin Kleppmann，剑桥大学 | 派生数据与源数据的一致性——**向量库是派生数据**，这个定位决定了删除必须从源头传播下来 |
+| — | [Milvus 删除机制文档](https://milvus.io/docs/delete-entities.md) | Milvus 项目 | 逻辑删除（打墓碑）与物理压缩的区别和时机差，别的向量库大同小异 |
+
+**「删除已提交」和「删除已生效」之间有一个窗口**，长度取决于压缩策略。这个窗口里旧向量仍可能被召回——**这就是幽灵文档的成因**，测法见 [[06-幽灵文档测试]]。

@@ -112,6 +112,11 @@ $$
 - [[02-算力经常用不满：两种瓶颈]]
 
 ## 参考
-- [Orca: A Distributed Serving System for Transformer-Based Generative Models](https://www.usenix.org/conference/osdi22/presentation/yu) — 迭代级调度的出处，OSDI 2022
-- [Efficient Memory Management for LLM Serving with PagedAttention](https://arxiv.org/abs/2309.06180) — vLLM 论文，连续批处理与分页显存怎么配合
-- [vLLM 文档](https://docs.vllm.ai/) — `max_num_seqs`、`max_num_batched_tokens` 的确切语义与默认值
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2022 | [Orca: A Distributed Serving System for Transformer-Based Generative Models](https://www.usenix.org/conference/osdi22/presentation/yu) | Gyeong-In Yu 等，首尔大学与 FriendliAI，OSDI 2022 | **迭代级调度的出处**——本篇的核心机制就是这篇提出的 |
+| 2023 | [Efficient Memory Management for LLM Serving with PagedAttention](https://arxiv.org/abs/2309.06180) | Woosuk Kwon 等，加州大学伯克利分校 | 连续批处理与分页显存怎么配合：**没有分页，动态进出 batch 会立刻撞上碎片** |
+| — | [vLLM 文档](https://docs.vllm.ai/) | vLLM 项目 | `max_num_seqs`、`max_num_batched_tokens` 的确切语义与默认值 |
+
+**它为什么是收益最确定的一项优化**：decode 阶段算术强度约等于 batch 大小，而单请求时那个值是 1，离拐点差两个数量级——**堆 batch 是唯一能填上这个差距的手段**，见 [[02-算力经常用不满：两种瓶颈]]。

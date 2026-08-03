@@ -13,7 +13,7 @@ aliases:
 
 ## 一句话
 
-切法和检索方式**必须一起选**——递归切分配混合检索，语义切分配纯向量；而实测里最朴素的那种反而经常赢。
+切法和检索方式**必须一起选**——递归切分配混合检索，语义切分配纯向量；而实测里最朴素的定长切分只落后最优方案一两个百分点，复杂方案得先证明自己配得上多出来的那份复杂度。
 
 ## 原理
 
@@ -28,13 +28,26 @@ aliases:
 | **③ parent-child** | 小块用来检索，命中后返回它所在的大块 | 需要「检索准 + 上下文全」 |
 | **④ late chunking** | 先把整篇过 embedding 模型，再切向量 | 代词和跨段指代多时 |
 
-### 朴素的那个经常赢
+### 朴素的那个差不到哪儿去
 
-一个反直觉但有实测支撑的结论：**递归 512-token 切分在一项 7 种策略的对比里排第一（准确率 69%），而听起来更聪明的「语义切分」只有 54%。** 另一项研究发现 1024 token 附近的忠实度接近峰值。
+一项覆盖八种切法、八个问答数据集的系统评测（[Chunking Methods on RAG](https://arxiv.org/abs/2606.00881)，Śmigielski 等，弗罗茨瓦夫理工大学，2026）给出了一组值得记住的数字。按 Accuracy@5 排：
 
-原因大致是：语义切分依赖模型判断边界，而那个判断本身会出错，错了就把相关内容切散了；定长切分虽然会切断语义，但它**错得均匀且可预测**，配合重叠和重排能补回来。
+| 切法 | Accuracy@5 |
+| --- | --- |
+| Recursive Semantic | 89.36% |
+| **Fixed-size（定长）** | **87.71%** |
+| GraphSeg | 86.85% |
+| Max-min | 85.75% |
+| Lumberchunker | 85.44% |
+| TextTiling | 84.96% |
+| Sequential HAC | 80.09% |
+| DenseX | 69.10% |
 
-**所以起点应该是递归切分**，别一上来就上复杂方案。复杂方案要用实测证明它比这个基线好。
+**最朴素的定长切分排第二，和第一名差 1.65 个百分点。** 而排在它后面的那些，每一个都要多花模型调用、多一层依赖、多一批可能出错的地方。
+
+这不是说复杂方案没用——第一名确实是个语义方法。这是说**它们赢的幅度，通常配不上它们的复杂度**。定长切分虽然会切断语义，但它错得均匀且可预测，配合重叠、parent-child 和重排能补回来不少；而依赖模型判断边界的方法，判断错了就把相关内容切散了，且错得没规律。
+
+**所以起点应该是定长或递归切分**，别一上来就上复杂方案。上面那张表就是你的基线：**复杂方案得先证明它在你的数据上赢得比 1.65 个百分点多**，否则省下的复杂度更值钱。
 
 ### parent-child 解决的是什么
 
@@ -112,7 +125,7 @@ aliases:
 
 ## 坑
 
-**一上来就用语义切分。** 实测里它输给最朴素的递归切分。
+**一上来就用语义切分。** 它在系统评测里确实排第一，但只领先定长切分 1.65 个百分点——而你要为此付出模型调用、额外依赖和一类新的失败模式。**先建基线，再让它证明这笔买卖划算。**
 
 **只调切法不调检索。** 两者配对错了，切法再好也发挥不出来。
 
@@ -130,6 +143,10 @@ aliases:
 - [[06-Embedding 与向量空间]]
 
 ## 参考
-- [RAG Chunking Strategies: A 2026 Retrieval Playbook](https://www.digitalapplied.com/blog/rag-chunking-strategies-2026-retrieval-quality-playbook) — 七种策略的对比数据与配对建议，本篇 69% / 54% 那组数字的出处
-- [Chunking Methods on RAG — Effectiveness vs Computational Cost](https://arxiv.org/abs/2606.00881) — 各方法的效果与成本权衡
-- [Late Chunking](https://arxiv.org/abs/2409.04701) — 先编码后切分的原始思路
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2024 | [Late Chunking: Contextual Chunk Embeddings Using Long-Context Embedding Models](https://arxiv.org/abs/2409.04701) | Michael Günther 等，Jina AI | 第四种切法「先编码后切分」的原始思路 |
+| 2026 | [Chunking Methods on Retrieval-Augmented Generation — Effectiveness Evaluation Against Computational Cost and Limitations](https://arxiv.org/abs/2606.00881) | Mateusz Śmigielski 等，弗罗茨瓦夫理工大学人工智能系 | 「朴素的那个差不到哪儿去」整节，那张八种切法的 Accuracy@5 表逐行来自这篇 |
+
+那张表的口径要看清：**Accuracy@5、八个问答数据集上的平均值**。换个指标（比如 NDCG）或换个领域，名次会动——**别把这张表当成结论，把它当成基线的形状**。自己的数据上重跑一遍，才是「动手做」第一项要干的事。

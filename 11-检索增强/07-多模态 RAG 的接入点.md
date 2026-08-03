@@ -132,5 +132,10 @@ aliases:
 - [[06-检索评估两段式]]
 
 ## 参考
-- [ColPali](https://arxiv.org/abs/2407.01449) — 直接对文档页面图像做检索，绕开 OCR 的一条路线
-- [BGE-M3](https://arxiv.org/abs/2402.03216) — 多向量检索的思路，多模态场景下也适用
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2024 | [M3-Embedding（BGE-M3）](https://arxiv.org/abs/2402.03216) | Jianlv Chen 等，北京智源人工智能研究院 | 多向量检索的思路，多模态场景同样适用 |
+| 2024 | [ColPali: Efficient Document Retrieval with Vision Language Models](https://arxiv.org/abs/2407.01449) | Manuel Faysse 等，法国中央理工-高等电力学院与 Illuin Technology | **直接对文档页面图像做检索、绕开 OCR** 的一条路线，和先转文本那条正好是两种取舍 |
+
+**接入点的选择决定了后面所有事**：转成文本进现有索引（复用整套检索栈、可解释、但丢版面），还是保留图像另建索引（不丢信息、但索引与存储都更贵）。**先定这个，再谈别的**，见 [[02-OCR pipeline]] 与 [[03-多模态 RAG]]。

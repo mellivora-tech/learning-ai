@@ -123,5 +123,10 @@ computer use 是**没有 API 时的最后手段**：它能操作任何有界面�
 - [[01-图像与音频的 token 计算]]
 
 ## 参考
-- [OSWorld](https://arxiv.org/abs/2404.07972) — 真实桌面环境下的 agent 评测基准，能看出这类任务的实际难度
-- [Prompt Injection Attacks on Agentic Coding Assistants](https://arxiv.org/abs/2601.17548) — 界面与工具生态里的注入面
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2024 | [OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments](https://arxiv.org/abs/2404.07972) | Tianbao Xie 等，香港大学 | 真实桌面环境下的 agent 评测基准——**能看出这类任务的实际难度**，别凭演示视频判断 |
+| 2026 | [Prompt Injection Attacks on Agentic Coding Assistants](https://arxiv.org/abs/2601.17548) | Narek Maloyan、Dmitry Namiot | 界面与工具生态里的注入面 |
+
+**这一篇的立场值得重申**：computer use 是**没有 API 时的最后手段**。上面那个基准的成功率就是最好的说明——**有 API 就别走这条路**，慢几十倍、贵几十倍，而且几乎无法做细粒度权限控制。

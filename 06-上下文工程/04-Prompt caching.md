@@ -114,5 +114,12 @@ aliases:
 - [[02-必打字段清单]]
 
 ## 参考
-- [Efficient Memory Management for LLM Serving with PagedAttention](https://arxiv.org/abs/2309.06180) — 前缀共享的底层机制
-- [vLLM 优化与调优](https://docs.vllm.ai/en/stable/configuration/optimization/) — 自建侧的前缀缓存参数
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2023 | [Efficient Memory Management for LLM Serving with PagedAttention](https://arxiv.org/abs/2309.06180) | Woosuk Kwon 等，加州大学伯克利分校 | 前缀共享的底层机制——**知道它按块匹配，才知道为什么「前缀必须逐字节相同」** |
+| — | [vLLM 优化与调优](https://docs.vllm.ai/en/stable/configuration/optimization/) | vLLM 项目 | 自建侧的前缀缓存参数 |
+
+**本篇管的是 prompt 怎么排（静态在前、动态在后），引擎侧的机制在 [[05-Prefix caching]]。** 两者要配合：排得再好，引擎没开前缀缓存也白搭；引擎开了，而你每次把时间戳放在最前面，命中率照样是零。
+
+安全侧：跨租户共享缓存有时序侧信道，见 [[05-缓存安全与跨租户命中]]。

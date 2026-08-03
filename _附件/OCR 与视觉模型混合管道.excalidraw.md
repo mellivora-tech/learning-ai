@@ -28,7 +28,7 @@ tags:
 
 不够（约两成） ^t024
 
-八成的文档拿到 OCR 的成本，两成拿到视觉模型的准确率 ^t026
+多数文档走便宜的那条，视觉模型只花在它真能赢的那些上 ^t026
 
 纯 OCR 在复杂版面上不行，纯视觉模型对全量文档太贵——所以混着来 ^t027
 
@@ -840,11 +840,11 @@ tags:
       "locked": false,
       "fontSize": 17,
       "fontFamily": 2,
-      "text": "八成的文档拿到 OCR 的成本，两成拿到视觉模型的准确率",
+      "text": "多数文档走便宜的那条，视觉模型只花在它真能赢的那些上",
       "textAlign": "center",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "八成的文档拿到 OCR 的成本，两成拿到视觉模型的准确率",
+      "originalText": "多数文档走便宜的那条，视觉模型只花在它真能赢的那些上",
       "lineHeight": 1.25,
       "autoResize": true,
       "baseline": 14

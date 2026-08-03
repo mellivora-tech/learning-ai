@@ -1,7 +1,7 @@
 ---
 tags:
   - ai工程/多模态
-stage: 8
+stage: 10
 status: todo
 aliases:
   - OCR
@@ -32,7 +32,7 @@ aliases:
 
 ![[OCR 与视觉模型混合管道.excalidraw.md|700]]
 
-**约八成的文档拿到 OCR 的成本，两成拿到视觉模型的准确率。**
+混合管道的设计目标是：**让绝大多数文档走便宜的那条路，只把视觉模型花在它真正能赢的那一小撮上**。省下多少取决于你的文档里「规整版面」占比多高——这个比例得自己统计，不同业务能差出好几倍。
 
 具体来说：
 
@@ -130,6 +130,11 @@ OCR 管道的 eval 要分层，见 [[01-Golden set]]：
 - [[01-Golden set]]
 
 ## 参考
-- [LLM OCR vs Traditional OCR: When AI Wins (and When It Doesn't) — 2026 Benchmark](https://parsli.co/blog/llm-ocr-vs-traditional-ocr) — 混合管道「八成成本、两成准确率」那个结论的出处
-- [OCR Technology in 2026: How AI and LLMs Changed Everything](https://photes.io/blog/posts/ocr-research-trend) — 两条路线的能力边界对比
-- [ICDAR 2025 Competition on End-to-End Document Image Machine Translation](https://arxiv.org/pdf/2603.09392) — 复杂版面下的端到端评测
+
+**混合管道的成本比例没有可引用的一手数据**，它取决于你的文档构成——所以本篇给的是判据（什么文档走哪条路），不是比例。
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2025 | [olmOCR: Unlocking Trillions of Tokens in PDFs with Vision Language Models](https://arxiv.org/abs/2502.18443) | Jake Poznanski 等，艾伦人工智能研究院 | 视觉模型做文档解析这条路线的开放实现，含版面处理与成本讨论。权重与工具链全部开源，适合拿来做自己那条路的基线 |
+| 2026 | [ICDAR 2025 Competition on End-to-End Document Image Machine Translation](https://arxiv.org/abs/2603.09392) | ICDAR 竞赛组织方 | 复杂版面下的端到端评测，即「什么文档 OCR 会输」那一段的参照 |
+| — | [Tesseract](https://github.com/tesseract-ocr/tesseract) 与 [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR) | 开源社区 | 传统 OCR 那条路的两个常用实现，用来搭混合管道的便宜分支 |

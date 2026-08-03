@@ -29,7 +29,7 @@ Prefill 一次并行处理整段输入、卡在算力上；decode 一次只出�
 
 ### 为什么性质相反
 
-在 [[02-算力经常用不满：两种瓶颈]] 里推过算术强度——每搬一字节做多少次运算。H100 的拐点约 590 FLOP/byte。
+在 [[02-算力经常用不满：两种瓶颈]] 里推过算术强度——每搬一字节做多少次运算。H100 的拐点约 295 FLOP/byte（BF16 稠密算力 ÷ 显存带宽）。
 
 |         | 每步搬多少        | 每步算多少      | 算术强度                  | 落在拐点哪侧               |
 | ------- | ------------ | ---------- | --------------------- | -------------------- |
@@ -123,6 +123,11 @@ $$
 - [[09-量化]]
 
 ## 参考
-- [Efficient Memory Management for LLM Serving with PagedAttention](https://arxiv.org/abs/2309.06180) — vLLM 论文，两阶段的调度问题
-- [Orca: A Distributed Serving System for Transformer-Based Generative Models](https://www.usenix.org/conference/osdi22/presentation/yu) — 迭代级调度的出处，也是最早把两阶段说清楚的系统论文之一
-- [DistServe: Disaggregating Prefill and Decoding](https://arxiv.org/abs/2401.09670) — PD 分离的动机与收益分析
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2022 | [Orca: A Distributed Serving System for Transformer-Based Generative Models](https://www.usenix.org/conference/osdi22/presentation/yu) | Gyeong-In Yu 等，首尔大学与 FriendliAI，OSDI 2022 | 迭代级调度的出处，**也是最早把两阶段说清楚的系统论文之一** |
+| 2023 | [Efficient Memory Management for Large Language Model Serving with PagedAttention](https://arxiv.org/abs/2309.06180) | Woosuk Kwon 等，加州大学伯克利分校 | vLLM 论文，两阶段的调度问题 |
+| 2024 | [DistServe: Disaggregating Prefill and Decoding for Goodput-optimized LLM Serving](https://arxiv.org/abs/2401.09670) | Yinmin Zhong 等，北京大学与加州大学圣迭戈分校 | **PD 分离**的动机与收益分析：两阶段瓶颈不同，放在一起调度必然互相拖累 |
+
+**两阶段的分野是这一整个目录的根**：prefill 吃算力、decode 吃带宽，因此几乎所有优化手段对两者的效果都是相反的，见 [[02-算力经常用不满：两种瓶颈]]。

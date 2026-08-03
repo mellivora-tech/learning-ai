@@ -1,7 +1,7 @@
 ---
 tags:
   - ai工程/合规
-stage: 9
+stage: 10
 status: todo
 aliases:
   - AI Act
@@ -76,7 +76,7 @@ AI Act 按角色分配义务，这个区分决定了你要做多少事：
 | **删除权** | 数据进了模型权重删不掉；进了向量库要能删，见 [[05-Freshness 与 tombstone 删除传播]] |
 | **自动化决策** | 对个人有重大影响的自动决策，用户有权要求人工介入，见 [[03-HITL 交互设计]] |
 | **可解释性** | 要能说明决策逻辑，见 [[02-审计日志]] |
-| 跨境传输 | 见 [[01-数据驻留]] |
+| 跨境传输 | 调一次境外 API 就是一次传输，而这一步常常没人当回事，见 [[01-数据驻留]] |
 
 **「进了模型权重删不掉」是个真问题**，也是「别拿用户数据随便微调」的一个硬理由，见 [[02-SFT 数据构造]]。
 
@@ -139,6 +139,12 @@ AI Act 按角色分配义务，这个区分决定了你要做多少事：
 - [[03-HITL 交互设计]]
 
 ## 参考
-- [High-level summary of the AI Act](https://artificialintelligenceact.eu/high-level-summary/) — 官方条款的结构化摘要，查风险等级从这里开始
-- [EU AI Act Deadlines 2026-2027: Compliance Calendar + Fines](https://www.legiscope.com/blog/eu-ai-act-timeline-deadlines.html) — 本篇时间线表的出处，含 Omnibus 推迟后的日期
-- [EU AI Act Compliance Guide: Updated June 2026](https://www.surecloud.com/resource-hub/eu-ai-act-complete-compliance-guide) — 提供方与部署方义务的对照
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| — | [High-level summary of the AI Act](https://artificialintelligenceact.eu/high-level-summary/) | 欧盟 AI Act 官方摘要 | **查风险等级与义务从这里开始**，本篇分级那节的依据 |
+| 2026 | [EU AI Act Deadlines: Compliance Calendar](https://www.legiscope.com/blog/eu-ai-act-timeline-deadlines.html) | Legiscope | 本篇时间线表的出处，含 Omnibus 推迟后的日期 |
+
+> [!warning] 时间线会变，本篇不是法律意见
+> AI Act 的生效日期已经被推迟过一次。**任何具体日期都要回官方摘要核对**，本篇给的是义务的结构，不是当前有效的日程。
+> 涉及真实合规决策时找法务，这一篇只帮你知道该问什么问题。

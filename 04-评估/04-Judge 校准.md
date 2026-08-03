@@ -122,6 +122,11 @@ judge 会被跑很多次，模型选贵了 CI 会慢到没人愿意等，见 [[0
 - [[05-怎么评估会思考的模型]]
 
 ## 参考
-- [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685) — Zheng 等，2023。位置偏差、自我偏好、长度偏好都是这篇量化出来的
-- [Cohen's kappa](https://en.wikipedia.org/wiki/Cohen%27s_kappa) — 定义与解读区间
-- [G-Eval](https://arxiv.org/abs/2303.16634) — 带思维链的 judge 设计，一致性比直接打分高
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 1960 | [Cohen's kappa](https://en.wikipedia.org/wiki/Cohen%27s_kappa) | Jacob Cohen，纽约大学 | 校准用的核心指标：把「蒙也能蒙对」的那部分从一致率里扣掉。定义与解读区间见词条 |
+| 2023 | [G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment](https://arxiv.org/abs/2303.16634) | Yang Liu 等，微软 | 带思维链的 judge 设计，一致性比直接打分高 |
+| 2023 | [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685) | Lianmin Zheng 等，加州大学伯克利分校与斯坦福大学 | **位置偏差、自我偏好、长度偏好三种偏差都是这篇量化出来的**，本篇偏差清单的出处 |
+
+kappa 的计算与一个反面用例（永远说「通过」的 judge：朴素一致率 90%，kappa≈0）在 `_练习/04-CI 里的 eval 门禁.py` 第 3 关。**这个例子说明为什么不能用一致率验收 judge。**

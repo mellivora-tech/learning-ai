@@ -121,5 +121,10 @@ vLLM 论文里量化过这种浪费——**实测可以超过六成**。分三�
 - [[07-Continuous batching]]
 
 ## 参考
-- [Efficient Memory Management for LLM Serving with PagedAttention](https://arxiv.org/abs/2309.06180) — vLLM 论文，浪费的量化分析在第 2 节，块表设计在第 4 节
-- [Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) — 块管理器与调度器怎么配合
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2023 | [Efficient Memory Management for LLM Serving with PagedAttention](https://arxiv.org/abs/2309.06180) | Woosuk Kwon 等，加州大学伯克利分校 | **本篇的全部来源**：浪费的量化分析在第 2 节，块表设计在第 4 节 |
+| 2025 | [Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://vllm.ai/blog/2025-09-05-anatomy-of-vllm) | vLLM 项目 | 块管理器与调度器怎么配合，比论文更贴近当前实现 |
+
+**这篇论文的类比来自操作系统的虚拟内存**，而这个类比一路管用：块表就是页表，块共享就是写时复制，换出就是换页。**懂虚拟内存的话，这一篇几乎不用学**，见 [[06-驱逐与内存压力]]。

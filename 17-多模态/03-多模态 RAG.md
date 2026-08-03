@@ -1,7 +1,7 @@
 ---
 tags:
   - ai工程/多模态
-stage: 8
+stage: 10
 status: todo
 aliases:
   - multimodal RAG
@@ -126,5 +126,11 @@ golden set 要专门包含**只能从图里回答的问题**，见 [[01-Golden s
 - [[01-Golden set]]
 
 ## 参考
-- [Multimodal AI: The Best Open-Source Vision Language Models in 2026](https://www.bentoml.com/blog/multimodal-ai-a-guide-to-open-source-vision-language-models) — 可用于图描述与跨模态检索的开源模型
-- [mPLUG-DocOwl2](https://arxiv.org/pdf/2409.03420) — 多页文档的图文联合理解
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2021 | [Learning Transferable Visual Models From Natural Language Supervision](https://arxiv.org/abs/2103.00020) | Alec Radford、Jong Wook Kim 等，OpenAI | CLIP：把图和文映射进同一个向量空间，跨模态检索这条路的起点 |
+| 2024 | [ColPali: Efficient Document Retrieval with Vision Language Models](https://arxiv.org/abs/2407.01449) | Manuel Faysse 等，法国中央理工-高等电力学院与 Illuin Technology | 「直接对页面截图做检索、跳过 OCR」这一支的代表作，和先转文本那条路正好是两种取舍 |
+| 2024 | [mPLUG-DocOwl2](https://arxiv.org/abs/2409.03420) | Anwen Hu 等，阿里巴巴 | 多页文档的图文联合理解 |
+
+**两条路的分界很清楚**：先 OCR 转文本再走常规 RAG，还是直接检索页面图像。前者复用现有检索栈、可解释性好；后者不丢版面和图表信息，但索引和存储都更贵，见 [[02-OCR pipeline]]。

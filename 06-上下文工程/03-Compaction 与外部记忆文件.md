@@ -134,6 +134,11 @@ aliases:
 - [[06-四层参数校验]]
 
 ## 参考
-- [Governance Decay: How Context Compaction Silently Erases Safety Constraints in Long-Horizon LLM Agents](https://arxiv.org/abs/2606.22528) — 安全约束被压缩抹掉那个现象的出处
-- [Slipstream: Trajectory-Grounded Compaction Validation for Long-Horizon Agents](https://arxiv.org/abs/2605.08580) — 给压缩加验证的一种做法
-- [Agent Context Engineering 2026](https://agentmarketcap.ai/blog/2026/04/11/agent-context-engineering-sliding-windows-memory-2026) — 滑窗、分层摘要、外置三者的取舍
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2023 | [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560) | Charles Packer 等，加州大学伯克利分校 | 「把上下文当分页内存管」这个类比的出处，也是外部记忆文件这条路的源头 |
+| 2026 | [Slipstream: Trajectory-Grounded Compaction Validation for Long-Horizon Agents](https://arxiv.org/abs/2605.08580) | Zhuofu Chen 等 | 给压缩加验证的一种做法——压完之后怎么确认没压掉要紧的东西 |
+| 2026 | [Governance Decay: How Context Compaction Silently Erases Safety Constraints in Long-Horizon LLM Agents](https://arxiv.org/abs/2606.22528) | Shiyang Chen | 安全约束被压缩静默抹掉那个现象的出处，本篇最该记住的一条 |
+
+**这三篇的顺序就是这个话题的成熟过程**：先有人提出把上下文当内存管，再有人发现压缩会悄悄丢东西，最后才有人做压缩的验证。**「静默」是关键词**——压缩出错不报错，只能主动测。

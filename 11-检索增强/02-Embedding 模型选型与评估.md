@@ -121,7 +121,13 @@ BGE-M3 那个「一个模型出三种向量」的特性值得单独提：它可�
 - [[05-Freshness 与 tombstone 删除传播]]
 
 ## 参考
-- [MTEB Leaderboard](https://huggingface.co/spaces/mteb/leaderboard) — 收窄候选用，看检索子项
-- [BGE-M3](https://arxiv.org/abs/2402.03216) — 一个模型同时产出稠密、稀疏、多向量
-- [Qwen3-Embedding](https://huggingface.co/Qwen/Qwen3-Embedding-8B) — 模型卡里写明了查询/文档的使用方式
-- [Matryoshka Representation Learning](https://arxiv.org/abs/2205.13147) — 按需降维的训练方式
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2022 | [Matryoshka Representation Learning](https://arxiv.org/abs/2205.13147) | Aditya Kusupati 等，华盛顿大学与 Google Research | 按需降维的训练方式——**截断向量而不重训**，选型时「支不支持可变维度」这一条的来源 |
+| 2024 | [M3-Embedding（BGE-M3）](https://arxiv.org/abs/2402.03216) | Jianlv Chen 等，北京智源人工智能研究院 | 一个模型同时产出稠密、稀疏、多向量三种表示，见 [[03-Hybrid search（dense + BM25 + RRF）]] |
+| — | [Qwen3-Embedding-8B 模型卡](https://huggingface.co/Qwen/Qwen3-Embedding-8B) | 阿里巴巴通义千问团队 | **模型卡里写明了查询和文档要不要加不同前缀**——这类使用约定用错会静默掉点 |
+
+收窄候选：[MTEB Leaderboard](https://huggingface.co/spaces/mteb/leaderboard)，**看检索子项而不是总分**。
+
+**榜单只用来收窄，定夺必须靠自己的数据。** embedding 的领域敏感性比生成模型高得多——**通用榜单第一在你的垂直语料上排第五是常态**。

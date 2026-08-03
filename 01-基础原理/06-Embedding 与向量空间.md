@@ -104,7 +104,11 @@ $$
 - [[03-漂移监控三条线]]
 
 ## 参考
-- [Sentence-BERT](https://arxiv.org/abs/1908.10084) — Reimers、Gurevych，2019。把句向量做成可直接算相似度的那篇
-- [Representation Degeneration / 各向异性](https://arxiv.org/abs/1907.12009) — 为什么向量都挤在一个狭窄锥形里
-- [Matryoshka Representation Learning](https://arxiv.org/abs/2205.13147) — 一次训练得到多个可用维度，降维不用重训
-- [MTEB](https://huggingface.co/spaces/mteb/leaderboard) — embedding 模型的横向评测，选型时的起点
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2019 | [Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks](https://arxiv.org/abs/1908.10084) | Nils Reimers、Iryna Gurevych，达姆施塔特工业大学 | 把句向量做成可直接算余弦相似度的那一篇——在此之前 BERT 的向量不能这么用 |
+| 2019 | [Representation Degeneration Problem in Training Natural Language Generation Models](https://arxiv.org/abs/1907.12009) | Jun Gao 等，微软亚洲研究院与南京大学 | 各向异性：为什么训出来的向量都挤在一个狭窄的锥形里，以及它对相似度的影响 |
+| 2022 | [Matryoshka Representation Learning](https://arxiv.org/abs/2205.13147) | Aditya Kusupati 等，华盛顿大学与 Google Research | 一次训练得到多个可用维度，截断降维不用重训——现在多数 embedding API 的「可选维度」就是它 |
+
+选型入口：[MTEB 排行榜](https://huggingface.co/spaces/mteb/leaderboard)。**别只看总分**，按你的语言和任务类型筛完再比，理由见 [[02-Embedding 模型选型与评估]]。

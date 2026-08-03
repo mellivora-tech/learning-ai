@@ -15,6 +15,8 @@ aliases:
 
 ## 原理
 
+![[思考预算的两种分法.excalidraw.md|700]]
+
 ### 你能控制的只有预算
 
 推理模型把「怎么想」训进了权重里，见 [[08-预训练、后训练、对齐]]。你影响不了它的推理方式，能给的只有：
@@ -132,5 +134,10 @@ $$
 - [[02-必打字段清单]]
 
 ## 参考
-- [Inference-Time Scaling 综述](https://medium.com/@adnanmasood/inference-time-scaling-how-modern-ai-models-think-longer-to-perform-better-a1e1a8155fbd) — 思考 token 与可见 token 的比例数据
-- [Towards Thinking-Optimal Scaling of Test-Time Compute](https://openreview.net/forum?id=6ICFqmixlS) — 怎么分配思考预算才最优
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2025 | [Towards Thinking-Optimal Scaling of Test-Time Compute](https://openreview.net/forum?id=6ICFqmixlS) | OpenReview 投稿 | 怎么分配思考预算才最优——**按题目难度自适应分配，而不是全局设一个上限** |
+| 2025 | [Inverse Scaling in Test-Time Compute](https://arxiv.org/abs/2507.14417) | Aryo Pradipta Gema 等，爱丁堡大学与 Anthropic | 预算上限存在的硬理由：某些任务上多想是负收益，**budget 不只是省钱手段** |
+
+**「思考 token 占总输出的比例」这个数没有可靠的公开来源，本篇不给。** 它高度依赖模型、任务难度和 budget 设置——**自己在自己的流量上量一遍**，这也是「动手做」的第一项。计费上要注意：多数 API 把思考 token 按输出价计费，见 [[04-推理模型的成本与延迟曲线]]。

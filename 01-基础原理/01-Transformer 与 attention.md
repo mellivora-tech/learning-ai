@@ -7,7 +7,13 @@ aliases:
   - attention
   - self-attention
 ---
+同一个词在两句话里指的不是一回事，模型却只有一张固定的词表可查。这个落差怎么补上，是整个架构的起点。
+
+## 一句话
+
 Attention 把每个 token 的表示，重算成「它和序列里所有 token 的相关度」对那些 token 内容的加权和；Transformer 就是把这件事堆很多层，中间夹上前馈网络和残差。
+
+## 原理
 
 举个例子。「苹果」在下面两句话里是同一个 token，查 embedding 表拿到的初始向量**一模一样**：
 
@@ -64,7 +70,7 @@ Attention 把每个 token 的表示，重算成「它和序列里所有 token �
 
 ### 2017 年的赌注：把 RNN 整个拿掉
 
-原始论文的标题就是结论——[Attention Is All You Need](https://arxiv.org/abs/1706.03762)，Google Brain 与 Google Research 的八人团队，2017 年。其中 Noam Shazeer 值得单独记一下：这篇往后的 [MQA](https://arxiv.org/abs/1911.02150) 和 [SwiGLU](https://arxiv.org/abs/2002.05202) 也都出自他手，本篇参考里他一个人占三条。
+原始论文的标题就是结论——[Attention Is All You Need](https://arxiv.org/abs/1706.03762)，Google Brain 与 Google Research 的八人团队，2017 年。其中 Noam Shazeer 值得单独记一下：往后被最广泛沿用的两个组件——[MQA](https://arxiv.org/abs/1911.02150)（多查询注意力，2019）和 [SwiGLU](https://arxiv.org/abs/2002.05202)（前馈层的激活函数，2020）——也都出自他手。
 
 三条路线的差别可以压成一句话：**RNN 靠一个隐状态把序列顺序串起来，CNN 靠堆层数把视野撑开，self-attention 一层就把所有位置直连。** 画出来是这样：
 

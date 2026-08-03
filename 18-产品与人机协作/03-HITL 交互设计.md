@@ -1,7 +1,7 @@
 ---
 tags:
   - ai工程/产品
-stage: 9
+stage: 10
 status: todo
 aliases:
   - HITL
@@ -15,6 +15,8 @@ aliases:
 人机协作的价值取决于**复核比重做便宜多少**——所以设计的核心是让人快速判断对错，而不是让人重新读一遍。
 
 ## 原理
+
+![[HITL 三种介入形态.excalidraw.md|700]]
 
 ### 先算这笔账
 
@@ -125,5 +127,10 @@ $$
 - [[04-流式与可中断 UX]]
 
 ## 参考
-- [What We've Learned From A Year of Building with LLMs](https://applied-llms.org/) — 人机协作与复核成本的实践
-- [Guidelines for Human-AI Interaction](https://www.microsoft.com/en-us/research/publication/guidelines-for-human-ai-interaction/) — 微软的 18 条交互准则
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2019 | [Guidelines for Human-AI Interaction](https://www.microsoft.com/en-us/research/publication/guidelines-for-human-ai-interaction/) | Saleema Amershi 等，微软研究院 | 18 条交互准则，**「支持高效的纠正」「明确何时该给出多少控制权」**两条直接对应本篇的确认框设计 |
+| 2024 | [What We've Learned From A Year of Building with LLMs](https://applied-llms.org/) | Eugene Yan、Bryan Bischof、Hamel Husain 等六人 | 人机协作与复核成本的实践 |
+
+**本篇那个净收益公式没有外部出处，它就是本篇的主张**：复核耗时接近独立完成耗时时，这个系统没有价值。**这个式子该在做之前算，不是做完之后**——它经常直接否掉一个看起来很合理的需求。

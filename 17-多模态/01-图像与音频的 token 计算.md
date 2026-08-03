@@ -1,7 +1,7 @@
 ---
 tags:
   - ai工程/多模态
-stage: 8
+stage: 10
 status: todo
 aliases:
   - 图像 token
@@ -14,6 +14,8 @@ aliases:
 图像先被切成 patch 再编码成一串视觉 token，**数量随分辨率增长**；所以控制成本的第一手段是控制送进去的分辨率，而不是压缩提示词。
 
 ## 原理
+
+![[图像怎么变成 token.excalidraw.md|700]]
 
 ### 图像怎么变成 token
 
@@ -79,7 +81,7 @@ aliases:
 | 按任务选分辨率 | 读大字标题不需要高清，看小字表格需要 |
 | **避免多图 + 长上下文叠加** | 视觉 token 也占 KV cache，见 [[03-KV cache 管理与显存测算]] |
 | 图片走缓存 | 同一张图反复问，前缀缓存能命中，见 [[04-Prompt caching]] |
-| 先便宜路径再回落视觉 | 见 [[02-OCR pipeline]] |
+| 先便宜路径再回落视觉 | 规整版面先用传统 OCR，只在它置信度低时才升级到视觉模型，见 [[02-OCR pipeline]] |
 
 **第三条容易被忽略**：几千个视觉 token 同样吃显存，多图对话很容易把上下文预算吃光，见 [[02-Context engineering：上下文即预算]]。
 
@@ -120,5 +122,9 @@ aliases:
 - [[03-Tokenization]]
 
 ## 参考
-- [Multimodal AI: The Best Open-Source Vision Language Models in 2026](https://www.bentoml.com/blog/multimodal-ai-a-guide-to-open-source-vision-language-models) — 各开源视觉模型的 token 策略对比
-- [mPLUG-DocOwl2: High-resolution Compressing for OCR-free Multi-page Document Understanding](https://arxiv.org/pdf/2409.03420) — 高分辨率文档的视觉 token 压缩
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2023 | [Sigmoid Loss for Language Image Pre-Training](https://arxiv.org/abs/2303.15343) | Xiaohua Zhai 等，Google DeepMind | SigLIP 视觉编码器——现在多数开源视觉语言模型的图像塔，「图先被切成 patch 再变成 token」这一步的实现 |
+| 2024 | [mPLUG-DocOwl2: High-resolution Compressing for OCR-free Multi-page Document Understanding](https://arxiv.org/abs/2409.03420) | Anwen Hu 等，阿里巴巴 | 高分辨率文档的视觉 token 压缩：为什么一张大图不能直接按分辨率线性换算 token |
+| 2025 | [Qwen2.5-VL Technical Report](https://arxiv.org/abs/2502.13923) | 阿里巴巴通义千问团队 | 一个具体模型的图像与视频 token 换算规则，报告里写明了分辨率与 token 数的对应关系——**要算账就照着这类技术报告算，别用经验公式** |

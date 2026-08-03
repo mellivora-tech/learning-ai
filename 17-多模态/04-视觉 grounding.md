@@ -1,7 +1,7 @@
 ---
 tags:
   - ai工程/多模态
-stage: 8
+stage: 10
 status: todo
 aliases:
   - grounding
@@ -127,5 +127,11 @@ aliases:
 - [[06-幽灵文档测试]]
 
 ## 参考
-- [Multimodal AI: The Best Open-Source Vision Language Models in 2026](https://www.bentoml.com/blog/multimodal-ai-a-guide-to-open-source-vision-language-models) — 各模型的 grounding 能力对比
-- [LLM OCR vs Traditional OCR — 2026 Benchmark](https://parsli.co/blog/llm-ocr-vs-traditional-ocr) — 视觉模型幻觉与 OCR 交叉校验的实践
+
+| 年份 | 工作 | 人与机构 | 在本篇的位置 |
+| --- | --- | --- | --- |
+| 2016 | [Modeling Context in Referring Expressions](https://arxiv.org/abs/1608.00272) | Licheng Yu 等，北卡罗来纳大学教堂山分校 | RefCOCO 系列数据集，「给一句话找出对应的框」这个任务形态的基准来源 |
+| 2021 | [MDETR: Modulated Detection for End-to-End Multi-Modal Understanding](https://arxiv.org/abs/2104.12763) | Aishwarya Kamath 等，纽约大学与 Facebook AI Research | 把文本条件直接接进检测器的做法，grounding 从「先检测再匹配」转向端到端的节点 |
+| 2025 | [Qwen2.5-VL Technical Report](https://arxiv.org/abs/2502.13923) | 阿里巴巴通义千问团队 | 现代视觉语言模型怎么输出坐标框：报告里写明了坐标的表示方式与训练数据构成 |
+
+**「框在空白处就是编的」这类检测规则没有论文出处，是几何约束的直接推论**——正因为如此它才可靠：不依赖任何模型的具体行为，只依赖「有内容的地方才该有框」。
