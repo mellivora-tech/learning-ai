@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 40 860 330" role="img" aria-labelledby="t d">
+  <title id="t">长任务的状态机</title>
+  <desc id="d">待处理经出队进入检索中，检索完成后进入推理中；推理中与执行工具之间往返；检索超时或工具不可恢复转入失败，失败可重试回待处理；预算耗尽转入待人工，人工补充后可回到推理中，也可人工终结；推理中产出结果后转入已完成。</desc>
+
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1e1e1e"/>
+    </marker>
+    <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e03131"/>
+    </marker>
+    <style>
+      .b  { stroke-width:2; rx:8; }
+      .s  { font:14px ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif; fill:#1e1e1e; text-anchor:middle; }
+      .e  { font:12.5px ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif; fill:#1e1e1e; }
+      .er { font:12.5px ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif; fill:#e03131; }
+      .l  { stroke:#1e1e1e; stroke-width:1.8; fill:none; marker-end:url(#ah); }
+      .lr { stroke:#e03131; stroke-width:1.8; fill:none; stroke-dasharray:6 4; marker-end:url(#ahr); }
+    </style>
+  </defs>
+
+  <rect x="0" y="40" width="860" height="330" fill="#ffffff"/>
+
+  <!-- 起止 -->
+  <circle cx="30" cy="202" r="7" fill="#1e1e1e"/>
+  <circle cx="810" cy="202" r="9" fill="none" stroke="#1e1e1e" stroke-width="2"/>
+  <circle cx="810" cy="202" r="4.5" fill="#1e1e1e"/>
+
+  <!-- 状态 -->
+  <rect class="b" x="60"  y="180" width="110" height="44" fill="#e7f5ff" stroke="#1971c2"/>
+  <text class="s" x="115" y="207">待处理</text>
+
+  <rect class="b" x="240" y="180" width="110" height="44" fill="#e7f5ff" stroke="#1971c2"/>
+  <text class="s" x="295" y="207">检索中</text>
+
+  <rect class="b" x="420" y="180" width="110" height="44" fill="#e7f5ff" stroke="#1971c2"/>
+  <text class="s" x="475" y="207">推理中</text>
+
+  <rect class="b" x="420" y="70"  width="110" height="44" fill="#e7f5ff" stroke="#1971c2"/>
+  <text class="s" x="475" y="97">执行工具</text>
+
+  <rect class="b" x="660" y="180" width="110" height="44" fill="#ebfbee" stroke="#2f9e44"/>
+  <text class="s" x="715" y="207">已完成</text>
+
+  <rect class="b" x="420" y="300" width="110" height="44" fill="#fff9db" stroke="#f08c00"/>
+  <text class="s" x="475" y="327">待人工</text>
+
+  <rect class="b" x="190" y="300" width="110" height="44" fill="#ffe3e3" stroke="#e03131"/>
+  <text class="s" x="245" y="327">失败</text>
+
+  <!-- 主链路：实线 -->
+  <path class="l" d="M39,202 L54,202"/>
+  <path class="l" d="M170,202 L234,202"/>
+  <text class="e" x="202" y="193" text-anchor="middle">出队</text>
+
+  <path class="l" d="M350,202 L414,202"/>
+  <text class="e" x="382" y="193" text-anchor="middle">检索完成</text>
+
+  <path class="l" d="M530,202 L654,202"/>
+  <text class="e" x="592" y="193" text-anchor="middle">产出结果</text>
+
+  <path class="l" d="M770,202 L799,202"/>
+
+  <!-- 推理中 ⇄ 执行工具：实线，属于主循环 -->
+  <path class="l" d="M445,180 L445,120"/>
+  <text class="e" x="438" y="154" text-anchor="end">需要调用工具</text>
+
+  <path class="l" d="M505,114 L505,174"/>
+  <text class="e" x="512" y="154" text-anchor="start">工具返回</text>
+
+  <!-- 失败与人工：虚线旁路 -->
+  <path class="lr" d="M280,224 L280,294"/>
+  <text class="er" x="272" y="263" text-anchor="end">检索超时</text>
+
+  <path class="lr" d="M420,92 L215,92 L215,294"/>
+  <text class="er" x="320" y="84" text-anchor="middle">工具不可恢复</text>
+
+  <path class="lr" d="M190,322 L125,322 L125,230"/>
+  <text class="er" x="112" y="281" text-anchor="end">重试</text>
+
+  <path class="lr" d="M445,224 L445,294"/>
+  <text class="er" x="438" y="263" text-anchor="end">预算耗尽</text>
+
+  <path class="lr" d="M505,300 L505,230"/>
+  <text class="er" x="512" y="263" text-anchor="start">人工补充后继续</text>
+
+  <path class="lr" d="M530,322 L810,322 L810,213"/>
+  <text class="er" x="668" y="337" text-anchor="middle">人工终结</text>
+</svg>

@@ -48,7 +48,7 @@ JSON 解析失败率突然涨了。团队花两周改提示词，最后发现是
 
 `finish_reason == "length"` 时，输出多半是这样的：
 
-```json
+```text
 {"invoice_no": "INV-2026-0031", "items": [{"name": "服务费", "amoun
 ```
 

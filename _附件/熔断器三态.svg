@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 25 690 235" role="img" aria-labelledby="t d">
+  <title id="t">熔断器的三个状态</title>
+  <desc id="d">闭合状态正常放行；失败率超过阈值转为断开，直接失败不再发请求；冷却时间到后转为半开，放少量探测请求；探测成功回到闭合，探测失败退回断开。</desc>
+
+  <defs>
+    <marker id="mk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1e1e1e"/>
+    </marker>
+    <marker id="mr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e03131"/>
+    </marker>
+    <marker id="mo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f08c00"/>
+    </marker>
+    <marker id="mg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2f9e44"/>
+    </marker>
+    <style>
+      .s  { font:15px ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif; fill:#1e1e1e; text-anchor:middle; }
+      .n  { font:11.5px ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif; fill:#5c7cfa; text-anchor:middle; }
+      .lk { stroke:#1e1e1e; stroke-width:1.8; fill:none; marker-end:url(#mk); }
+      .lr { stroke:#e03131; stroke-width:1.8; fill:none; marker-end:url(#mr); }
+      .lrd{ stroke:#e03131; stroke-width:1.8; fill:none; stroke-dasharray:6 4; marker-end:url(#mr); }
+      .lod{ stroke:#f08c00; stroke-width:1.8; fill:none; stroke-dasharray:6 4; marker-end:url(#mo); }
+      .lg { stroke:#2f9e44; stroke-width:1.8; fill:none; marker-end:url(#mg); }
+      .er { font:12.5px ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif; fill:#e03131; text-anchor:middle; }
+      .eo { font:12.5px ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif; fill:#f08c00; text-anchor:middle; }
+      .eg { font:12.5px ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif; fill:#2f9e44; text-anchor:middle; }
+    </style>
+  </defs>
+
+  <rect x="0" y="25" width="690" height="235" fill="#ffffff"/>
+
+  <circle cx="25" cy="124" r="7" fill="#1e1e1e"/>
+
+  <rect x="50"  y="100" width="120" height="48" rx="8" fill="#ebfbee" stroke="#2f9e44" stroke-width="2"/>
+  <text class="s" x="110" y="121">闭合</text>
+  <text class="n" x="110" y="138">正常放行</text>
+
+  <rect x="290" y="100" width="120" height="48" rx="8" fill="#ffe3e3" stroke="#e03131" stroke-width="2"/>
+  <text class="s" x="350" y="121">断开</text>
+  <text class="n" x="350" y="138">直接失败，不发请求</text>
+
+  <rect x="530" y="100" width="120" height="48" rx="8" fill="#fff9db" stroke="#f08c00" stroke-width="2"/>
+  <text class="s" x="590" y="121">半开</text>
+  <text class="n" x="590" y="138">放少量探测请求</text>
+
+  <path class="lk"  d="M34,124 L44,124"/>
+
+  <path class="lr"  d="M170,124 L284,124"/>
+  <text class="er" x="227" y="113">失败率超阈值</text>
+
+  <path class="lod" d="M410,124 L524,124"/>
+  <text class="eo" x="467" y="113">冷却时间到</text>
+
+  <path class="lg"  d="M590,148 L590,213 L110,213 L110,154"/>
+  <text class="eg" x="350" y="231">探测成功</text>
+
+  <path class="lrd" d="M590,100 L590,53 L350,53 L350,94"/>
+  <text class="er" x="470" y="43">探测失败</text>
+</svg>

@@ -48,7 +48,9 @@ d.save("我的图")     # 写到 _附件/，并打印该用的嵌入语法
 
 图元：`box` `circle` `text` `rect` `line` `arrow` `arrow_between` `hop`，布局助手 `chain_down` `chain_right`。颜色只用 `PALETTE` 里那五档 tone，别在单张图里写死色值。
 
-时序图和状态机用 Mermaid。**Mermaid 节点标签不能以 `+` `-` `*` 开头**，会被当成 markdown 列表符渲染成 `Unsupported markdown: list`，加引号也没用——表示相加用 `⊕`。
+**状态机和时序图手写 SVG**，放 `_附件/`，用 `![[名字.svg|宽度]]` 嵌入。**这个库不再用 Mermaid**——它的箭头只有一种样式，而状态机上最该被一眼看出来的正是「主链路 / 故障 / 重试 / 恢复」的区别。
+
+写 SVG 时：颜色用 `mkdraw` 的五档 tone；**实线主链路、虚线旁路**；整图铺一层 `#ffffff` 底（否则深色主题下文字不可读）；只写 `viewBox` 不写死宽高；带上 `<title>` 与 `<desc>`。样例见 `_附件/长任务状态机.svg` 与 `_附件/熔断器三态.svg`。
 
 ## 交付前的检查
 
@@ -89,7 +91,7 @@ for r, ds, fs in os.walk("."):
         if f.endswith(".md"):
             body = strip_code(open(os.path.join(r, f), encoding="utf-8").read())
             used |= {m.split("|")[0] for m in re.findall(r'!\[\[([^\]]+)\]\]', body)}
-have = {f for f in os.listdir("_附件") if f.endswith(".md")}
+have = {f for f in os.listdir("_附件") if f.endswith((".md", ".svg"))}
 print("未被引用的图:", sorted(have - used) or "无")
 print("引用了不存在的图:", sorted(used - have) or "无")
 EOF
@@ -101,6 +103,35 @@ grep -rn --include='*.md' --exclude=AGENTS.md --exclude=00-总索引.md --exclud
 
 # 参考段是不是还停在裸列表（约定要求四列时间线表）
 grep -rlz --include='*.md' -P '## 参考\n(?!\n*\|)' . | tr '\0' '\n' | grep -v _模板
+
+# json / jsonl 代码块：能不能解析，以及有没有挤成一行
+# 规则很硬：标了 ```json 就必须是合法 JSON。演示「截断的输出」「好坏对照」这类
+# 本来就不合法的东西，用 ```text，别用 ```json 骗自己。
+python3 - <<'EOF'
+import os, re, json
+bad = []
+for r, ds, fs in os.walk("."):
+    ds[:] = [d for d in ds if not d.startswith(".")]
+    for f in fs:
+        if not f.endswith(".md"): continue
+        p = os.path.join(r, f); src = open(p, encoding="utf-8").read()
+        for m in re.finditer(r'```json\n(.*?)```', src, re.S):
+            body = m.group(1).rstrip("\n")
+            try:
+                obj = json.loads(body)
+            except Exception as e:
+                bad.append((p, "解析失败", str(e)[:60])); continue
+            # 挤成一行的：键多于行数，说明是手工折行或压成一行
+            if isinstance(obj, dict) and len(obj) >= 3 and len(body.split("\n")) < len(obj):
+                bad.append((p, "没展开", f"{len(obj)} 个键挤在 {len(body.splitlines())} 行"))
+        for m in re.finditer(r'```jsonl\n(.*?)```', src, re.S):
+            for i, line in enumerate(m.group(1).strip().split("\n"), 1):
+                if not line.strip(): continue
+                try: json.loads(line)
+                except Exception as e: bad.append((p, f"jsonl 第 {i} 行", str(e)[:60]))
+print("json 块问题:", "无" if not bad else "")
+for p, k, d in bad: print(f"  [{k}] {p}\n      {d}")
+EOF
 ```
 
 还要过一遍 [00-总索引](00-总索引.md) 里「按读者的视野写」那三条自检，尤其是搜 `这篇` `本文` `这个库` `后面会讲`。
@@ -122,6 +153,6 @@ grep -rlz --include='*.md' -P '## 参考\n(?!\n*\|)' . | tr '\0' '\n' | grep -v 
   90-/91-               里程碑笔记，各阶段的交付物
 _工具/mkdraw.py         Excalidraw 生成器
 _练习/                  里程碑的起步脚本（留空待填 + 自带裁判）
-_附件/                  绘图文件（.excalidraw.md）
+_附件/                  绘图文件（.excalidraw.md，另有手写的 .svg）
 _模板/                  Templater 模板
 ```

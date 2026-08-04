@@ -50,8 +50,13 @@ RAG 系统的数据链路通常是这样：
 做法是给每条记录加一个删除标记（tombstone），并让它沿着链路传播：
 
 ```json
-{"doc_id": "doc-77", "op": "delete", "at": "2026-07-31T10:00:00Z",
- "reason": "source_deleted", "chunk_ids": ["doc-77:0", ..., "doc-77:11"]}
+{
+  "doc_id": "doc-77",
+  "op": "delete",
+  "at": "2026-07-31T10:00:00Z",
+  "reason": "source_deleted",
+  "chunk_ids": ["doc-77:0", "doc-77:1", "…", "doc-77:11"]
+}
 ```
 
 要点：
