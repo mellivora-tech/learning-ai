@@ -51,8 +51,8 @@
 		{"id":"skill-3","type":"text","text":"## 结构化输出","x":310,"y":1070,"width":220,"height":60,"color":"1"},
 		{"id":"skill-5","type":"text","text":"## Agent 评估","x":310,"y":1625,"width":220,"height":60,"color":"1"},
 		{"id":"skill-4","type":"text","text":"## 工具合约","x":310,"y":1345,"width":220,"height":60,"color":"1"},
-		{"id":"skill-1","type":"text","text":"## Context Engineering","x":310,"y":405,"width":220,"height":60,"color":"1"},
-		{"id":"skill-0","type":"text","text":"## Prompt Harnessing","x":340,"y":85,"width":220,"height":60,"color":"1"}
+		{"id":"skill-1","type":"text","text":"## Context Engineering","x":310,"y":405,"width":290,"height":60,"color":"1"},
+		{"id":"skill-0","type":"text","text":"## Prompt Harnessing","x":310,"y":85,"width":290,"height":55,"color":"1"}
 	],
 	"edges":[
 		{"id":"e-center-0","fromNode":"center","fromSide":"right","toNode":"skill-0","toSide":"left"},
