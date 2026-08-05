@@ -1,0 +1,21 @@
+{
+	"nodes":[
+		{"id":"center","type":"text","x":0,"y":395,"width":340,"height":120,"color":"1","text":"# 🧭 AI Engineer\n# 岗位图谱索引\n\n按岗位定位的思维导图\n→ [[知识体系|总能力地图]]"},
+		{"id":"role-0","type":"file","x":420,"y":60,"width":360,"height":90,"color":"1","file":"_岗位图谱/harness-agent.canvas"},
+		{"id":"role-1","type":"file","x":420,"y":190,"width":360,"height":90,"color":"2","file":"_岗位图谱/multi-agent.canvas"},
+		{"id":"role-2","type":"file","x":420,"y":320,"width":360,"height":90,"color":"3","file":"_岗位图谱/workflow.canvas"},
+		{"id":"role-3","type":"file","x":420,"y":450,"width":360,"height":90,"color":"4","file":"_岗位图谱/rag-engineer.canvas"},
+		{"id":"role-4","type":"file","x":420,"y":580,"width":360,"height":90,"color":"5","file":"_岗位图谱/inference-engineer.canvas"},
+		{"id":"role-5","type":"file","x":420,"y":710,"width":360,"height":90,"color":"6","file":"_岗位图谱/ai-security.canvas"},
+		{"id":"role-6","type":"file","x":420,"y":840,"width":360,"height":90,"color":"1","file":"_岗位图谱/ai-platform.canvas"}
+	],
+	"edges":[
+		{"id":"e-role-0","fromNode":"center","toNode":"role-0","fromSide":"right","toSide":"left"},
+		{"id":"e-role-1","fromNode":"center","toNode":"role-1","fromSide":"right","toSide":"left"},
+		{"id":"e-role-2","fromNode":"center","toNode":"role-2","fromSide":"right","toSide":"left"},
+		{"id":"e-role-3","fromNode":"center","toNode":"role-3","fromSide":"right","toSide":"left"},
+		{"id":"e-role-4","fromNode":"center","toNode":"role-4","fromSide":"right","toSide":"left"},
+		{"id":"e-role-5","fromNode":"center","toNode":"role-5","fromSide":"right","toSide":"left"},
+		{"id":"e-role-6","fromNode":"center","toNode":"role-6","fromSide":"right","toSide":"left"}
+	]
+}
